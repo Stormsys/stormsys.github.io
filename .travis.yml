@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "4"
+
+before_script: 
+  - npm install -g gulp-cli bower
+  - bower install
+
+script: gulp build
+
+after_success:
+  - bash ./travis/deploy.sh
+
+env:
+  global:
+    - ENCRYPTION_LABEL: "72443f99af0f"
+    - COMMIT_AUTHOR_EMAIL: "diogo@stormsys.net"
