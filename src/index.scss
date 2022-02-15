@@ -1,0 +1,19 @@
+@import "scss/shared";
+@import "scss/reset";
+
+body {
+  color: #fff;
+  background: #AFA98D;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #fff;
+}
+h1 {
+  font-size: 3em;
+  margin-bottom: 0.5em;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
