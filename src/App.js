@@ -1,6 +1,24 @@
+import React, { useEffect } from 'react';
 import './App.scss';
+const trianglify = require('trianglify')
 
-function App() {
+function App() {   
+
+  useEffect(() => {
+    const svgElement = trianglify({
+      width: 1920,
+      height: 4000,
+      cellSize: 70,
+      seed: 'stormsys.net',
+      colorFunction: trianglify.colorFunctions.sparkle(0.05),
+      palette: {stormsys: ['#7e7758', '#afa98d', '#d9d6c9', '#7e7758'] }
+    }).toSVGTree().toString();
+
+    const encodedData = window.btoa(svgElement);
+    const dataUrl = 'data:image/svg+xml;base64,' + encodedData;
+
+    document.body.style.backgroundImage = `url('${dataUrl}')`;
+  }, []);
   return (
     <div className="App">
       <div className="fullscreen">
