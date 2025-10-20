@@ -3,14 +3,17 @@
 
 // Modern fullscreen container
 .fullscreen {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: $spacing-xl;
   z-index: 1;
+  overflow: hidden; // Prevent scrolling issues with Vanta
 }
 
 // Modern centered content with glassmorphism
@@ -204,6 +207,13 @@
 
 // Mobile-specific optimizations
 @media (max-width: 767px) {
+  .fullscreen {
+    // Prevent mobile scroll issues with Vanta
+    position: fixed;
+    touch-action: none; // Disable touch scrolling
+    -webkit-overflow-scrolling: touch;
+  }
+  
   .center-screen {
     margin: $spacing-md;
     padding: $spacing-lg;
