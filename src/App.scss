@@ -4,16 +4,24 @@
 // Modern fullscreen container
 .fullscreen {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0; // top:0; right:0; bottom:0; left:0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; // fallback for older browsers
+  height: 100svh; // iOS Safari small viewport height to avoid bars
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: $spacing-xl;
   z-index: 1;
   overflow: hidden; // Prevent scrolling issues with Vanta
+}
+
+@supports (height: 100dvh) {
+  .fullscreen {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 // Modern centered content with glassmorphism
