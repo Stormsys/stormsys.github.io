@@ -1,4 +1,96 @@
+@import "variables";
+
+// List utilities
 @mixin list-unstyled() {
   padding-left: 0;
   list-style: none;
+}
+
+// Responsive mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (min-width: $breakpoint-md) { @content; }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) { @content; }
+  }
+  @if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Typography mixins
+@mixin text-shadow-modern {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+@mixin text-shadow-strong {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Button/link hover effects
+@mixin hover-lift {
+  transition: transform $transition-normal, box-shadow $transition-normal;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+@mixin hover-glow {
+  transition: text-shadow $transition-normal, color $transition-normal;
+  
+  &:hover {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    color: lighten($text-color, 10%);
+  }
+}
+
+// Modern glassmorphism effect
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $border-radius-lg;
+}
+
+// Smooth animations
+@mixin fade-in($duration: $transition-slow) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Focus states for accessibility
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid $link-color;
+    outline-offset: 2px;
+    border-radius: $border-radius-sm;
+  }
 }

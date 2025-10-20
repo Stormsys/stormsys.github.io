@@ -1,34 +1,274 @@
+@import "scss/variables";
+@import "scss/mixins";
+
+// Modern fullscreen container
 .fullscreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  z-index: 1;
 }
+
+// Modern centered content with glassmorphism
 .center-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   user-select: none;
-  height: 112px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 50%;
-  margin-top: -56px;
   text-align: center;
+  padding: $spacing-xxl;
+  width: min(90vw, 720px);
+  min-height: 200px;
+  
+  // Glassmorphism effect
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $border-radius-lg;
+  
+  // Loading state
+  &.loading { opacity: 0; }
+  
+  // Loaded state
+  &.loaded { animation: fadeIn 0.4s ease-in-out; opacity: 1; }
+  
+  // Responsive adjustments
+  @include respond-to(sm) {
+    padding: $spacing-xl;
+    min-height: 180px;
+  }
+  
+  @include respond-to(md) {
+    padding: $spacing-xxl * 1.5;
+    min-height: 220px;
+  }
 }
-.name, i {
-  text-shadow: 1px 1px 2px #b4af98;
+
+// Modern name styling
+.name {
+  font-family: "Inter", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: $spacing-lg;
+  position: relative;
+  
+  // Elegant divider underline
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -$spacing-sm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--text-color), transparent);
+    opacity: 0.5;
+  }
 }
-.sub-text a {
-  margin: 0 3px;
-}
+
+// Modern social links container
 .sub-text {
-  font-size: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-lg;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-top: $spacing-md;
+  
+  @include respond-to(sm) {
+    gap: $spacing-xl;
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+  }
+  
+  @include respond-to(md) {
+    gap: $spacing-xxl;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+  }
 }
+
+// Modern social link styling
 .sub-text a {
-  text-decoration: none;
-  transition: all ease-in-out 0.25s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include hover-glow;
+  @include focus-visible;
+  width: 64px;
+  height: 64px;
+  line-height: 1;
+  font-size: 28px; // decouple icon size from container
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all $transition-normal;
+  position: relative;
+  overflow: hidden;
+  
+  // Ripple effect on click
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width $transition-slow, height $transition-slow;
+  }
+  
+  &:active::before {
+    width: 120px;
+    height: 120px;
+  }
+  
+  // Icon styling
+  i {
+    @include text-shadow-modern;
+    font-size: 1em; // follow anchor's font-size
+    z-index: 1;
+    transition: transform $transition-normal;
+    line-height: 1;
+  }
+  
+  // Hover effects
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: $shadow-lg;
+    background: rgba(255, 255, 255, 0.15);
+    
+    i {
+      transform: scale(1.1);
+    }
+  }
+  
+  // Focus state
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 4px;
+  }
+  
+  // Responsive sizing
+  @include respond-to(sm) {
+    width: 72px;
+    height: 72px;
+    font-size: 30px;
+  }
+  
+  @include respond-to(md) {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
 }
-.sub-text a:hover {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-  color: #eee;
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .center-screen {
+    animation: none;
+  }
+  
+  .sub-text a {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+    
+    &::before {
+      transition: none;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .center-screen {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--text-color);
+  }
+  
+  .sub-text a {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--text-color);
+  }
+}
+
+// Mobile-specific optimizations
+@media (max-width: 767px) {
+  .center-screen {
+    margin: $spacing-md;
+    padding: $spacing-lg;
+    min-height: 160px;
+    max-width: calc(100vw - #{$spacing-md * 2});
+  }
+  
+  .name {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: $spacing-md;
+  }
+  
+  .sub-text {
+    gap: $spacing-md;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  
+  .sub-text a {
+    width: 50px;
+    height: 50px;
+    min-width: 44px; // Touch target minimum
+    min-height: 44px;
+    
+    i {
+      font-size: 1.1em;
+    }
+  }
+}
+
+// Touch device optimizations
+@media (hover: none) and (pointer: coarse) {
+  .sub-text a {
+    // Remove hover effects on touch devices
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background: rgba(255, 255, 255, 0.1);
+      
+      i {
+        transform: none;
+      }
+    }
+    
+    // Add active state for touch feedback
+    &:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// Landscape mobile optimization
+@media (max-width: 767px) and (orientation: landscape) {
+  .center-screen {
+    padding: $spacing-md;
+    min-height: 120px;
+  }
+  
+  .name {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    margin-bottom: $spacing-sm;
+  }
+  
+  .sub-text {
+    gap: $spacing-sm;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+  }
 }

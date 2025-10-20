@@ -1,21 +1,154 @@
 @import "scss/shared";
 @import "scss/reset";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
+// CSS Custom Properties for dynamic theming
+:root {
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  --text-color: #{$text-color};
+  --text-shadow-color: #{$text-shadow-color};
+  --link-color: #{$link-color};
+  --link-hover-color: #{$link-hover-color};
+}
+
+// Modern body styling
 body {
-  color: #fff;
-  background: #AFA98D;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+  background: var(--secondary-color);
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+  // CSS-only modern triangulated-like layered gradient background
+  background-image:
+    radial-gradient(1200px 800px at 20% 10%, rgba(126, 119, 88, 0.35) 0%, rgba(126, 119, 88, 0.0) 60%),
+    radial-gradient(900px 700px at 80% 20%, rgba(175, 169, 141, 0.35) 0%, rgba(175, 169, 141, 0.0) 60%),
+    radial-gradient(1000px 900px at 30% 80%, rgba(217, 214, 201, 0.25) 0%, rgba(217, 214, 201, 0.0) 60%),
+    linear-gradient(120deg, rgba(126, 119, 88, 0.35), rgba(175, 169, 141, 0.35) 40%, rgba(217, 214, 201, 0.25) 100%);
+  background-size: cover;
   background-position: center;
-  background-size:  cover;
+  background-attachment: fixed;
+  
+  // Smooth scrolling
+  scroll-behavior: smooth;
+  
+  // Better text rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
+
+// Modern link styling
 a {
-  color: #fff;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all $transition-normal;
+  
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    border-radius: $border-radius-sm;
+  }
 }
+
+// Modern heading styling
 h1 {
-  font-size: 3em;
-  margin-bottom: 0.5em;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: $font-weight-light;
+  margin-bottom: $spacing-lg;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  
+  @include respond-to(md) {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
 }
+
+// Modern code styling
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: $font-family-mono;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.1);
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Selection styling
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+}
+
+// Modern scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+// Performance optimizations
+* {
+  // Enable hardware acceleration for better performance
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+// Smooth transitions for all elements
+* {
+  transition: transform $transition-fast, opacity $transition-fast;
+}
+
+// Improve font loading
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Roboto Light'), local('Roboto-Light');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Roboto'), local('Roboto-Regular');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Roboto Medium'), local('Roboto-Medium');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Roboto Bold'), local('Roboto-Bold');
 }

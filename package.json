@@ -13,7 +13,8 @@
     "react-ga": "^3.3.0",
     "react-scripts": "5.0.0",
     "sass": "^1.43.3",
-    "trianglify": "^4.1.1",
+    "three": "^0.152.2",
+    "vanta": "^0.5.24",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
