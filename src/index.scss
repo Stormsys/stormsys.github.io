@@ -20,7 +20,7 @@ body {
   font-family: $font-family-primary;
   font-weight: $font-weight-regular;
   line-height: 1.6;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   
   // CSS-only modern triangulated-like layered gradient background
@@ -40,6 +40,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+  top: calc(env(safe-area-inset-top) * -1);
+  bottom: calc(env(safe-area-inset-bottom) * -1);
 }
 
 // Modern link styling
@@ -151,4 +157,12 @@ code {
   font-weight: 700;
   font-display: swap;
   src: local('Roboto Bold'), local('Roboto-Bold');
+}
+body {
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
 }

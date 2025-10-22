@@ -4,17 +4,20 @@
 // Modern fullscreen container
 .fullscreen {
   position: fixed;
-  inset: 0; // top:0; right:0; bottom:0; left:0;
-  width: 100vw;
-  height: 100vh; // fallback for older browsers
-  height: 100svh; // iOS Safari small viewport height to avoid bars
-  min-height: 100svh;
+  inset: 0;
+  // inset: 0; // top:0; right:0; bottom:0; left:0;
+  // width: 100vw;
+  // height: 100vh; // fallback for older browsers
+  // height: 100dvh; // iOS Safari small viewport height to avoid bars
+  // min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: $spacing-xl;
   z-index: 1;
-  overflow: hidden; // Prevent scrolling issues with Vanta
+  overflow: hidden; // Prevent scrolling issues with Vanta;
+  padding-bottom: calc(env(safe-area-inset-bottom) * -1);
+  padding-top: calc(env(safe-area-inset-top) * -1);
 }
 
 @supports (height: 100dvh) {
@@ -220,6 +223,31 @@
     position: fixed;
     touch-action: none; // Disable touch scrolling
     -webkit-overflow-scrolling: touch;
+    
+    // Fade Vanta waves into solid color at edges
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height:100px;
+      background: linear-gradient(to bottom, #AFA98D, transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, #AFA98D, transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
   }
   
   .center-screen {
@@ -227,6 +255,7 @@
     padding: $spacing-lg;
     min-height: 160px;
     max-width: calc(100vw - #{$spacing-md * 2});
+    z-index: 2; // Ensure content is above fade overlays
   }
   
   .name {
