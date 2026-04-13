@@ -142,10 +142,76 @@
   letter-spacing: -0.3px;
 }
 
+.project-subtitle {
+  font-size: 12px;
+  color: $text-dim;
+  font-weight: $font-weight-regular;
+  margin-top: 2px;
+}
+
+.project-detail {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+
+  &:last-of-type {
+    margin-bottom: 12px;
+  }
+}
+
+.detail-label {
+  color: $text-dim;
+  font-weight: $font-weight-medium;
+  min-width: 78px;
+  flex-shrink: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-top: 2px;
+}
+
+.detail-text {
+  color: $text-muted;
+}
+
+.project-tags-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .project-tags {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.full-stack {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.stack-tag {
+  background: rgba($secondary, 0.04) !important;
+  color: $text-dim !important;
+  font-size: 10px !important;
+}
+
+.tag-more {
+  cursor: pointer;
+  border: 1px dashed rgba($secondary, 0.2);
+  background: transparent;
+  color: $text-dim;
+  font-family: inherit;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: rgba($secondary, 0.4);
+    color: $secondary;
+  }
 }
 
 .tag {
@@ -180,12 +246,6 @@
   }
 }
 
-.project-desc {
-  font-size: 14px;
-  color: $text-muted;
-  line-height: 1.65;
-  margin-bottom: 12px;
-}
 
 .project-links {
   display: flex;

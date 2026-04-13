@@ -40,12 +40,12 @@ function Hero() {
         </div>
         <div className="hero-divider hero-anim" />
         <p className="hero-bio hero-anim">
-          I'm a builder at heart. By day I lead engineering teams shipping GenAI
+          I'm a builder at heart. By day I lead engineering teams shipping Applied AI
           products at <strong>Meta</strong> — before that, developer platforms at{" "}
-          <strong>Checkout.com</strong> and restaurant tech at{" "}
-          <strong>Just Eat</strong>. By night I'm writing code — Swift apps,
-          serverless backends, Home Assistant integrations, whatever problem
-          needs solving next. I've never stopped shipping.
+          <strong>Checkout.com</strong> and restaurant supply &amp; availability at{" "}
+          <strong>Just Eat Takeaway.com</strong>. By night I'm building apps, platforms, and
+          home automations — reducing real-life friction and making mundane
+          things feel exciting. I've never stopped shipping.
         </p>
         <nav className="hero-links hero-anim" aria-label="Social links">
           <a

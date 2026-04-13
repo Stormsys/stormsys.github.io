@@ -1,21 +1,61 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { projectGroups } from "../data/projects";
 
 function ProjectCard({ project }) {
+  const [showStack, setShowStack] = useState(false);
   return (
     <div className="project-card reveal-child">
       <div className="project-top">
-        <div className="project-name">{project.name}</div>
-        <div className="project-tags">
-          {project.tags.map((tag) => (
-            <span key={tag.label} className={`tag ${tag.color}`}>
-              {tag.label}
-            </span>
-          ))}
+        <div>
+          <div className="project-name">{project.name}</div>
+          {project.subtitle && (
+            <div className="project-subtitle">{project.subtitle}</div>
+          )}
+        </div>
+        <div className="project-tags-wrap">
+          <div className="project-tags">
+            {project.tags.map((tag) => (
+              <span key={tag.label} className={`tag ${tag.color}`}>
+                {tag.label}
+              </span>
+            ))}
+            {project.fullStack && (
+              <button
+                className="tag tag-more"
+                onClick={() => setShowStack(!showStack)}
+              >
+                {showStack ? "less" : `+${project.fullStack.length - project.tags.length} more`}
+              </button>
+            )}
+          </div>
+          {showStack && project.fullStack && (
+            <div className="full-stack">
+              {project.fullStack.map((item) => (
+                <span key={item} className="tag stack-tag">{item}</span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-      <div className="project-desc">{project.description}</div>
+      {project.problem && (
+        <div className="project-detail">
+          <span className="detail-label">Problem</span>
+          <span className="detail-text">{project.problem}</span>
+        </div>
+      )}
+      {project.features && (
+        <div className="project-detail">
+          <span className="detail-label">Solution</span>
+          <span className="detail-text">{project.features}</span>
+        </div>
+      )}
+      {project.complexity && (
+        <div className="project-detail">
+          <span className="detail-label">Complexity</span>
+          <span className="detail-text">{project.complexity}</span>
+        </div>
+      )}
       {project.links.length > 0 && (
         <div className="project-links">
           {project.links.map((link) => (

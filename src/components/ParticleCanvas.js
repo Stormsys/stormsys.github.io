@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from "react";
 
 const PARTICLE_COUNT = 100;
 const CONNECT_DISTANCE = 160;
-const PARTICLE_COLOR = "175, 169, 141";
+const PARTICLE_COLOR = "124, 146, 176";
 
 function ParticleCanvas() {
   const canvasRef = useRef(null);
