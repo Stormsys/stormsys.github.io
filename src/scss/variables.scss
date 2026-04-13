@@ -1,22 +1,40 @@
-// Color palette - keeping existing earth tones
-$primary-color: #7e7758;
-$secondary-color: #AFA98D;
-$accent-color: #d9d6c9;
-$text-color: #ffffff;
-$text-shadow-color: #b4af98;
+// ── Dark earth-tone palette ──
+$bg-dark: #0f0e0b;
+$primary: #7e7758;
+$secondary: #AFA98D;
+$accent: #d9d6c9;
+$text-heading: #f5f1e6;
+$text-body: #a8a290;
+$text-muted: #8a8470;
+$text-dim: #6b6556;
+$text-faint: #5a5647;
+$text-ghost: #3d3a32;
 
-// Link colors
-$link-color: #22AED1;
-$link-hover-color: #016FB9;
+// Tag colors
+$tag-swift: #f59e0b;
+$tag-typescript: #60a5fa;
+$tag-python: #4ade80;
+$tag-aws: #fb923c;
+$tag-live: #4ade80;
+
+// Legacy tokens (kept for mixins compatibility)
+$primary-color: $primary;
+$secondary-color: $secondary;
+$accent-color: $accent;
+$text-color: $text-heading;
+$text-shadow-color: #b4af98;
+$link-color: $secondary;
+$link-hover-color: $accent;
 
 // Typography
-$font-family-primary: "Inter", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-primary: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 
 // Font weights
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
+$font-weight-semibold: 600;
 $font-weight-bold: 700;
 
 // Spacing scale
@@ -48,4 +66,4 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
-$responsive-max-width: 970px;
+$content-max-width: 900px;
