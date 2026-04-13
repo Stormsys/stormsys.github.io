@@ -1,0 +1,41 @@
+@import "variables";
+
+.site-footer {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 48px 48px;
+  border-top: 1px solid rgba($secondary, 0.05);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-size: 13px;
+  color: $text-ghost;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-link {
+  font-size: 13px;
+  color: $text-faint;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $secondary;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .site-footer {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 24px 24px 32px;
+  }
+}
