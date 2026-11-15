@@ -19,15 +19,19 @@ export default function Hero() {
           <span className="status-dot" /> DIOGO MOURA / ENGINEER, MANAGER, MAKER
         </div>
         <h1>
-          That’s annoying.
+          Always building.
           <br />
-          <span>Let’s fix it.</span>
+          <span>Now with more reach.</span>
         </h1>
-        <p className="hero-aside">Usually with code. Sometimes a 3D printer.</p>
+        <p className="hero-aside">
+          The curiosity came first. AI turned up the pace.
+        </p>
         <div className="hero-bottom">
           <p>
-            I'm Diogo. Engineering Manager at Meta, badminton player, and the
-            person who turns booking a court into a software project.
+            I’m Diogo. An engineer, leader and lifelong builder. I’ve always
+            loved making things work better—from automating everyday tasks to
+            helping teams ship. Today, AI is part of how I build, taking more of
+            those ideas further, faster.
           </p>
           <a
             className="round-link"
@@ -39,7 +43,7 @@ export default function Hero() {
         </div>
         <div className="hero-meta">
           <span>BASED IN LONDON, UK</span>
-          <span>LESS ADMIN. MORE TIME ON COURT.</span>
+          <span>PEOPLE, IDEAS & THE DRIVE TO BUILD.</span>
         </div>
       </header>
     </>

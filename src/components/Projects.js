@@ -100,12 +100,12 @@ export default function Projects() {
       <div className="section-heading">
         <div>
           <span className="eyebrow">01 / THINGS I WANTED TO EXIST</span>
-          <h2>It started with “surely there’s a better way”.</h2>
+          <h2>Ideas I cared enough to build.</h2>
         </div>
         <p>
           A sport I play. A home I automate.
           <br />
-          These are the rabbit holes I ended up in.
+          Built to be used. Improved by using them.
         </p>
       </div>
       <div className="filter-bar" aria-label="Filter projects">

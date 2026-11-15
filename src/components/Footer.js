@@ -6,32 +6,37 @@ export default function Footer() {
         <div>
           <span className="eyebrow">02 / A BIT ABOUT ME</span>
           <h2>
-            Still an engineer.
+            People matter.
             <br />
-            Even in meetings.
+            So does the craft.
           </h2>
         </div>
         <div className="about-copy">
           <p>
-            My day job is helping engineers do great work. At Meta, that means
-            teams shipping Applied AI. Before that: developer platforms at
-            Checkout.com, and restaurant operations at Just Eat Takeaway.com. I
-            care about giving people room to grow, with enough direction to
-            build something that matters.
+            I lead engineering teams at Meta working on Applied AI. Before that,
+            I worked on developer platforms at Checkout.com and restaurant
+            operations at Just Eat Takeaway.com. What matters to me is giving
+            people the clarity, trust and room to do work they’re proud of—and
+            helping them grow along the way.
           </p>
           <p>
-            Away from work, I wanted less badminton admin. That became booking
-            automation, league software and a watch app. At home, I connect the
-            things that don’t talk to each other and 3D-print the bits that
-            don’t exist yet. There’s usually a fairly ordinary problem behind
-            the code.
+            Building has always been personal. Badminton admin became booking
+            automation, league software and a watch app. Devices that wouldn’t
+            talk to each other became home integrations. I was doing this long
+            before AI became part of the toolkit.
+          </p>
+          <p>
+            Now I build with AI as a natural part of the process. It lets me
+            explore more ideas and move faster from “what if” to something I can
+            actually use. The tools have changed the pace. The instinct is the
+            same: understand the problem, get hands-on, and make it better.
           </p>
           <div className="off-screen">
             <span className="eyebrow">ALSO INTO</span>
             <p>Boxing · Board games · Photography · Travel</p>
           </div>
           <a className="text-link" href="/cv/">
-            The career bit →
+            Explore my experience →
           </a>
         </div>
       </section>
