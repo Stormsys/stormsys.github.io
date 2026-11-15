@@ -7,28 +7,27 @@ export default function Hero() {
           dm<span>.</span>
         </a>
         <div>
-          <a href="#projects">Selected work</a>
+          <a href="#projects">Things I’ve built</a>
           <a href="#about">About</a>
           <a href="/cv/">
-            Résumé <span aria-hidden="true">↗</span>
+            CV <span aria-hidden="true">↗</span>
           </a>
         </div>
       </nav>
       <header className="hero" id="top">
         <div className="eyebrow">
-          <span className="status-dot" /> ENGINEERING LEADER & HANDS-ON BUILDER
+          <span className="status-dot" /> DIOGO MOURA / ENGINEER, MANAGER, MAKER
         </div>
         <h1>
-          Good teams.
+          That’s annoying.
           <br />
-          Useful software.
-          <br />
-          <span>A little curiosity.</span>
+          <span>Let’s fix it.</span>
         </h1>
+        <p className="hero-aside">Usually with code. Sometimes a 3D printer.</p>
         <div className="hero-bottom">
           <p>
-            I'm Diogo Moura. I lead engineering teams at Meta and build things
-            that make everyday life work a little better.
+            I'm Diogo. Engineering Manager at Meta, badminton player, and the
+            person who turns booking a court into a software project.
           </p>
           <a
             className="round-link"
@@ -40,7 +39,7 @@ export default function Hero() {
         </div>
         <div className="hero-meta">
           <span>BASED IN LONDON, UK</span>
-          <span>PEOPLE · PLATFORMS · PRODUCTS</span>
+          <span>LESS ADMIN. MORE TIME ON COURT.</span>
         </div>
       </header>
     </>

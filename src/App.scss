@@ -57,10 +57,10 @@
   line-height: 1.04;
   letter-spacing: -0.065em;
   font-weight: 500;
-  margin: 32px 0 40px;
+  margin: 32px 0 22px;
 }
 .hero h1 > span {
-  color: #74816b;
+  color: #435b35;
 }
 .hero-bottom {
   display: flex;
@@ -176,45 +176,38 @@
 .art-caption {
   text-transform: uppercase;
 }
-.art-shape {
+.project-drawing {
   position: absolute;
-  width: 270px;
-  height: 270px;
-  border: 1px solid #93a488;
-  left: 50%;
-  top: 52%;
-  transform: translate(-50%, -50%) rotate(-30deg);
-  border-radius: 50%;
+  width: 78%;
+  height: 86%;
+  left: 11%;
+  top: 7%;
+  stroke: #53764e;
+  stroke-width: 1.4;
 }
-.art-shape i {
-  position: absolute;
-  inset: 25px;
-  border: 1px solid #93a488;
-  border-radius: 50%;
+.court-drawing {
+  transform: rotate(-12deg);
 }
-.art-shape i:nth-child(2) {
-  inset: 55px;
+.court-net {
+  stroke-dasharray: 3 3;
+  stroke-width: 3;
 }
-.art-shape i:nth-child(3) {
-  inset: 85px;
+.court-player {
+  fill: #d8ee67;
+  stroke: #304b30;
+  stroke-width: 2;
 }
-.art-shape i:nth-child(4) {
-  inset: 115px;
-  background: #9aaf7c;
+.court-trail {
+  stroke-dasharray: 5 5;
 }
-.project-card:nth-child(even) .art-shape {
-  border-radius: 0;
-  transform: translate(-50%, -50%) rotate(35deg);
+.home-drawing {
+  stroke: #8b6248;
 }
-.project-card:nth-child(even) .art-shape i {
-  border-radius: 0;
+.home-circuit {
+  stroke-dasharray: 4 4;
 }
-.smarthome .art-shape,
-.smarthome .art-shape i {
-  border-color: #afa28d;
-}
-.smarthome .art-shape i:nth-child(4) {
-  background: #aa987e;
+.home-light {
+  fill: #e9b778;
 }
 .project-body {
   padding: 24px 0 0;
@@ -453,4 +446,44 @@
 }
 .skip-link:focus {
   top: 12px;
+}
+
+.hero h1 > span {
+  text-decoration: underline;
+  text-decoration-color: #cadf75;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.06em;
+}
+.hero-aside {
+  font:
+    italic 18px/1.6 Georgia,
+    serif;
+  margin: 0 0 32px;
+  color: #647052;
+}
+.off-screen {
+  border-top: 1px solid #cbd4bf;
+  margin-top: 25px;
+  padding-top: 20px;
+}
+.off-screen p {
+  margin-top: 8px;
+  font-size: 13px;
+}
+.section-heading > div {
+  max-width: 660px;
+}
+.section-heading > p {
+  min-width: 220px;
+}
+.project-art.badminton {
+  background: #dce6bc;
+}
+@media (max-width: 700px) {
+  .hero-aside {
+    font-size: 15px;
+  }
+  .hero h1 {
+    font-size: clamp(39px, 10.4vw, 70px);
+  }
 }

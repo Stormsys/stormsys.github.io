@@ -4,36 +4,44 @@ export default function Footer() {
     <>
       <section id="about" className="about">
         <div>
-          <span className="eyebrow">02 / THE PERSON BEHIND THE WORK</span>
+          <span className="eyebrow">02 / A BIT ABOUT ME</span>
           <h2>
-            Engineer at heart.
+            Still an engineer.
             <br />
-            Leader by practice.
+            Even in meetings.
           </h2>
         </div>
         <div className="about-copy">
           <p>
-            I work at the intersection of people, platforms and products. At
-            Meta, I lead teams shipping Applied AI. Before that, I worked on
-            developer platforms at Checkout.com and restaurant operations at
-            Just Eat Takeaway.com.
+            My day job is helping engineers do great work. At Meta, that means
+            teams shipping Applied AI. Before that: developer platforms at
+            Checkout.com, and restaurant operations at Just Eat Takeaway.com. I
+            care about giving people room to grow, with enough direction to
+            build something that matters.
           </p>
           <p>
-            Outside work, I follow my curiosity: building apps, connecting
-            devices and finding better ways to run a badminton club. The common
-            thread is making something useful, then making it better.
+            Away from work, I wanted less badminton admin. That became booking
+            automation, league software and a watch app. At home, I connect the
+            things that don’t talk to each other and 3D-print the bits that
+            don’t exist yet. There’s usually a fairly ordinary problem behind
+            the code.
           </p>
+          <div className="off-screen">
+            <span className="eyebrow">ALSO INTO</span>
+            <p>Boxing · Board games · Photography · Travel</p>
+          </div>
           <a className="text-link" href="/cv/">
-            Explore my experience ↗
+            The career bit →
           </a>
         </div>
       </section>
       <footer className="site-footer">
         <div>
-          <span className="eyebrow">LET'S CONNECT</span>
+          <span className="eyebrow">SAY HELLO</span>
           <h2>
-            Always up for a<br />
-            good conversation.
+            Building something?
+            <br />
+            I’d like to hear about it.
           </h2>
           <a
             className="contact-link"
@@ -46,7 +54,7 @@ export default function Footer() {
           <span>Diogo Moura · London</span>
           <nav aria-label="Footer navigation">
             <a href="https://github.com/Stormsys">GitHub ↗</a>
-            <a href="/cv/">Résumé ↗</a>
+            <a href="/cv/">CV ↗</a>
             <a href="#top">Back to top ↑</a>
           </nav>
         </div>
