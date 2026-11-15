@@ -389,3 +389,29 @@ html[data-motion="off"] .build-loop__forward,
 html[data-motion="off"] .build-loop__feedback-trace {
   display: none;
 }
+
+/* Nodes share the path's ten-second clock; selection and readable copy stay independent. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-motion="off"]) .build-loop__node::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 2px solid var(--coral);
+    border-radius: 50%;
+    background: #ffb4a126;
+    box-shadow: 0 0 18px #ffb4a14d;
+    opacity: 0;
+    pointer-events: none;
+    animation: loop-node-signal 10s linear infinite;
+    animation-delay: var(--signal-delay);
+    animation-play-state: paused;
+  }
+  html:not([data-motion="off"]) .build-loop[data-flowing="true"] .build-loop__node::after {
+    animation-play-state: running;
+  }
+}
+@keyframes loop-node-signal {
+  0% { opacity: 0; transform: scale(.92); }
+  2%, 6% { opacity: 1; transform: scale(1); }
+  10%, 100% { opacity: 0; transform: scale(1.12); }
+}

@@ -8,7 +8,7 @@ const stages = [
     judgement:
       "Get close to the real task. Decide what would actually help and which constraints matter.",
     assistance:
-      "Probe the brief, surface questions and explore angles I might have missed.",
+      "Put multiple models to work on the problem: investigate the code, challenge the brief and bring back competing approaches.",
     output: "A clear problem to solve",
   },
   {
@@ -17,7 +17,7 @@ const stages = [
     judgement:
       "Compare directions, weigh the tradeoffs and choose an idea worth putting in someone’s hands.",
     assistance:
-      "Generate alternatives and help turn rough ideas into something concrete enough to evaluate.",
+      "Run different approaches in parallel. Build prototypes, compare the results and take the strongest direction forward.",
     output: "A direction worth testing",
   },
   {
@@ -26,7 +26,7 @@ const stages = [
     judgement:
       "Shape the behaviour, set the boundaries and stay close to the details that make it useful.",
     assistance:
-      "Work through implementation, explore unfamiliar territory and shorten the distance between iterations.",
+      "Connect models to native development workflows, backed by my own server rack and home-grown CI/CD pipelines.",
     output: "Something that works",
   },
   {
@@ -35,7 +35,7 @@ const stages = [
     judgement:
       "Check real behaviour, edge cases and usability. Decide whether the result meets the bar.",
     assistance:
-      "Challenge assumptions, suggest test cases and help investigate what isn’t behaving as intended.",
+      "Use separate passes for implementation, review and testing. Feed failures back through the pipeline and inspect the result.",
     output: "Evidence, not assumptions",
   },
   {
@@ -44,7 +44,7 @@ const stages = [
     judgement:
       "Listen to feedback, notice what people struggle with and choose the next meaningful improvement.",
     assistance:
-      "Help organise feedback, look for patterns and explore the implications of a change.",
+      "Improve the system as well as the product: carry useful findings into the tools, automation and workflows behind the next build.",
     output: "A sharper next question",
   },
 ];
@@ -85,7 +85,7 @@ export default function BuildLoop() {
       data-flowing={flowing}
     >
       <div className="build-loop__caption">
-        <span>Human judgement × AI assistance</span>
+        <span>Human direction × An AI-native build system</span>
         <span>
           Explore the loop <span aria-hidden="true">↓</span>
         </span>
@@ -120,6 +120,7 @@ export default function BuildLoop() {
             onClick={() => setActive(index)}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className="build-loop__tab"
+            style={{ "--signal-delay": `${0.2 + index * 1.1}s` }}
           >
             <span className="build-loop__node" aria-hidden="true">
               0{index + 1}
@@ -159,13 +160,13 @@ export default function BuildLoop() {
           <div className="build-loop__roles">
             <div className="build-loop__role">
               <h4>
-                <span aria-hidden="true">↳</span> My judgement
+                <span aria-hidden="true">↳</span> My direction
               </h4>
               <p>{stage.judgement}</p>
             </div>
             <div className="build-loop__role build-loop__role--ai">
               <h4>
-                <span aria-hidden="true">＋</span> AI assistance
+                <span aria-hidden="true">＋</span> The engine at work
               </h4>
               <p>{stage.assistance}</p>
             </div>

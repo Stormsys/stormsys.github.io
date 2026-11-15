@@ -17,8 +17,9 @@ export default function Approach() {
           </h2>
         </div>
         <p>
-          AI expands what I can explore and build. I stay accountable for the
-          direction, the details and what ships.
+          Multiple models. My own infrastructure. Home-grown pipelines and native
+          workflows. I build the system that lets me explore and ship more —
+          and stay accountable for the direction, the details and the result.
         </p>
       </div>
       <BuildLoop />
