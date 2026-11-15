@@ -1,49 +1,66 @@
 import React from "react";
+
 export default function Hero() {
   return (
     <>
       <nav className="site-nav" aria-label="Main navigation">
-        <a className="wordmark" href="#top">
+        <a className="wordmark" href="#top" aria-label="Diogo Moura — home">
           dm<span>.</span>
         </a>
         <div>
-          <a href="#projects">Things I’ve built</a>
+          <a href="#projects">Selected work</a>
+          <a href="#approach">Approach</a>
           <a href="#about">About</a>
-          <a href="/cv/">
+          <a className="nav-cv" href="/cv/">
             CV <span aria-hidden="true">↗</span>
           </a>
         </div>
       </nav>
       <header className="hero" id="top">
-        <div className="eyebrow">
-          <span className="status-dot" /> DIOGO MOURA / ENGINEER, MANAGER, MAKER
-        </div>
-        <h1>
-          Always building.
-          <br />
-          <span>Now with more reach.</span>
-        </h1>
-        <p className="hero-aside">
-          The curiosity came first. AI turned up the pace.
+        <p className="eyebrow">
+          DIOGO MOURA <span className="separator">/</span> ENGINEER · LEADER ·
+          BUILDER
         </p>
+        <h1>
+          Always a builder.
+          <br />
+          <span>AI changes the pace.</span>
+        </h1>
         <div className="hero-bottom">
-          <p>
-            I’m Diogo. An engineer, leader and lifelong builder. I’ve always
-            loved making things work better—from automating everyday tasks to
-            helping teams ship. Today, AI is part of how I build, taking more of
-            those ideas further, faster.
-          </p>
-          <a
-            className="round-link"
-            href="#projects"
-            aria-label="Explore selected work"
-          >
-            ↓
-          </a>
+          <div className="hero-intro">
+            <p>
+              I’ve always built things and automated the tedious parts. Now I
+              build with AI at the core—exploring further, moving faster, and
+              turning more ideas into something useful.
+            </p>
+            <div className="hero-actions">
+              <a className="button-primary" href="#projects">
+                Explore the work <span aria-hidden="true">↗</span>
+              </a>
+              <a className="inline-link" href="#approach">
+                How I think about building <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+          <div className="hero-note">
+            <span className="signal-mark" aria-hidden="true">
+              ↗
+            </span>
+            <p>
+              The tools keep evolving.
+              <br />
+              The drive was always there.
+            </p>
+          </div>
         </div>
         <div className="hero-meta">
-          <span>BASED IN LONDON, UK</span>
-          <span>PEOPLE, IDEAS & THE DRIVE TO BUILD.</span>
+          <span>
+            Engineering Manager at <strong>Meta</strong>
+          </span>
+          <span>
+            Previously <strong>Checkout.com</strong> & <strong>Just Eat</strong>
+          </span>
+          <span>London, UK</span>
         </div>
       </header>
     </>

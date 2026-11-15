@@ -1,157 +1,116 @@
+// Public portfolio copy. Keep ShuttleStats intentionally high-level.
 export const projectGroups = [
   {
     id: "badminton",
     name: "Badminton",
-    icon: "🏸",
-    colorClass: "badminton",
-    description:
-      "I help my club & friends group organise badminton sessions in London. Courts are in high demand, admin feels like a drag, and I got tired of WhatsApp, notes, and split focus. So I built an ecosystem — live session management, automated court booking, league rankings, and on-court scoring from your wrist.",
     projects: [
       {
-        name: "Badminton Club Stats",
-        subtitle: "The Badminton Collective",
-        tags: [
-          { label: "live", color: "live" },
-          { label: "React", color: "react" },
-          { label: "Lambda", color: "aws" },
-          { label: "DynamoDB", color: "aws" },
-          { label: "WebSockets", color: "aws" },
-        ],
-        fullStack: [
-          "TypeScript", "React", "Vite", "Tailwind CSS v4", "TanStack Query",
-          "Node.js", "Express", "AWS Lambda", "API Gateway HTTP", "API Gateway WebSocket",
-          "DynamoDB", "CloudFront", "S3", "SSM Parameter Store",
-          "Serverless Framework", "Vitest", "253 tests",
-        ],
-        problem: "Keeping members engaged between sessions and helping them track improvement over time — plus running fair, balanced singles sessions without a clipboard.",
-        features: "Comprehensive admin and player-facing apps. Elo/Glicko-2 matchmaking, live WebSocket score sync, player progression tracking, an achievements system, and session wrap-up stats. Self-service tablet kiosk mode for courtside use.",
-        complexity: "Server-authoritative state with DynamoDB conditional writes, queue-based matchmaking evaluating all pairwise combinations, device-scoped JWT auth. 253 tests.",
+        id: "scores",
+        name: "Badminton Scores App",
+        category: "iPhone & Apple Watch",
+        featured: true,
+        problem: "Stay in the game. Keep the score on your wrist.",
+        features:
+          "An Apple Watch scoring app with a companion iPhone experience for live scoreboards, match history and performance tracking. Built around the way we actually play.",
+        detail:
+          "The interesting challenge is keeping watch and phone in sync while making scoring quick enough to use between rallies. The app supports singles and doubles, undoing a point, and reviewing the match afterwards.",
+        stack: ["Swift", "SwiftUI", "watchOS", "iOS"],
         links: [
-          { label: "tbc.badminton-leagues.com", url: "https://tbc.badminton-leagues.com" },
+          { label: "Explore the app", url: "https://badmintonscores.app" },
         ],
       },
       {
-        name: "Club Admin & Booking Bot",
-        tags: [
-          { label: "Step Functions", color: "aws" },
-          { label: "Lambda", color: "aws" },
-          { label: "Stripe", color: "typescript" },
-          { label: "DynamoDB", color: "aws" },
-        ],
-        fullStack: [
-          "TypeScript", "Node.js", "Express", "React 18", "Vite",
-          "AWS Lambda", "Step Functions", "DynamoDB", "API Gateway",
-          "CloudFront", "S3", "Serverless Framework",
-          "Stripe Checkout", "Google Calendar API", "Web Push (VAPID)",
-          "BeWell/Gladstone API", "Jest", "80%+ coverage",
-        ],
-        problem: "Coordinating 20+ players across weekly sessions — court bookings, payments, cancellations, no-shows — was consuming hours in WhatsApp threads.",
-        features: "Automated pipeline that books courts via BeWell API, tracks attendance, processes Stripe payments, syncs to Google Calendar, and sends push reminders.",
-        complexity: "4-step booking pipeline with Step Functions orchestration, ghost booking recovery, idempotent duplicate handling, HMAC-signed cancellation links.",
+        id: "shuttlestats",
+        name: "ShuttleStats",
+        category: "Community software",
+        problem:
+          "Software for the badminton community, shaped by time on court.",
         links: [],
       },
       {
-        name: "Badminton Leagues",
-        tags: [
-          { label: "live", color: "live" },
-          { label: "React", color: "react" },
-          { label: "Lambda", color: "aws" },
-          { label: "API Gateway", color: "aws" },
-        ],
-        fullStack: [
-          "TypeScript", "React 19", "Vite 7", "React Router",
-          "Node.js", "AWS Lambda", "API Gateway", "DynamoDB",
-          "CloudFront", "S3", "Route 53", "Serverless Framework",
-        ],
-        problem: "Badminton is a niche sport — all the existing league software is clunky, expensive, and designed for federations. My coach was running seasonal leagues on paper. There had to be something better, so I built it.",
-        features: "Your league, run beautifully. A hybrid league & ladder platform — seasonal competitions with multiple brackets by skill level, challenge-based ladders, points-based rankings that update instantly after both players confirm results, Elo ratings for group-wide skill tracking, push notifications, and match history with performance stats. Full group management with public pages to attract members. Free to start, set up in minutes.",
-        links: [
-          { label: "badminton-leagues.com", url: "https://badminton-leagues.com" },
-        ],
+        id: "booking",
+        name: "Club Admin & Booking Bot",
+        category: "Everyday automation",
+        problem: "Less time organising the session. More time playing it.",
+        features:
+          "Court bookings, attendance, payments and reminders brought together for my club.",
+        detail:
+          "A practical response to the admin that used to live across WhatsApp conversations. The booking workflow connects court availability, payments and calendar updates.",
+        stack: ["TypeScript", "AWS", "Stripe"],
+        links: [],
       },
       {
-        name: "Badminton Scores App",
-        tags: [
-          { label: "Swift", color: "swift" },
-          { label: "SwiftUI", color: "swift" },
-          { label: "watchOS", color: "swift" },
-        ],
-        fullStack: [
-          "Swift", "SwiftUI", "SwiftData", "WatchConnectivity",
-          "watchOS 10+", "iOS 17+", "HealthKit", "MultipeerConnectivity",
-          "Core Motion", "Factory DI", "XCTest",
-          "AWS CDK", "S3", "CloudFront", "Universal Links",
-        ],
-        problem: "No way to keep score, share a live scoreboard, and track your match history — all without interrupting the game.",
-        features: "Score from your wrist via watchOS, with a live courtside scoreboard on iPhone that keeps all players in sync. Full match history with stats and performance tracking over time. Singles, doubles, mixed formats with configurable rules.",
-        complexity: "Actor-based WatchConnectivity with message deduplication, bidirectional phone/watch sync, SwiftData versioned schema migrations, undo/redo via snapshot stack, HealthKit workout integration, offline-first architecture.",
+        id: "leagues",
+        name: "Badminton Leagues",
+        category: "Web platform",
+        problem: "A better home for leagues that started on paper.",
+        features:
+          "Competitions, challenge ladders and match results in one place, built for badminton groups.",
+        detail:
+          "Seasonal competitions sit alongside challenge-based ladders. Players can confirm results and follow their match history, while organisers manage groups and skill brackets.",
+        stack: ["React", "TypeScript", "AWS"],
         links: [
-          { label: "badmintonscores.app", url: "https://badmintonscores.app" },
+          {
+            label: "Visit Badminton Leagues",
+            url: "https://badminton-leagues.com",
+          },
         ],
       },
     ],
   },
   {
     id: "smarthome",
-    name: "Smart Home",
-    icon: "🏠",
-    colorClass: "smarthome",
-    description:
-      "If a device in my house can be automated, it probably is. Custom Home Assistant integrations and dashboard tools for everything the defaults don't cover.",
+    name: "Home & automation",
     projects: [
       {
+        id: "grid",
         name: "Sections Grid Layout",
-        tags: [
-          { label: "TypeScript", color: "typescript" },
-          { label: "Lit", color: "typescript" },
-          { label: "CSS Grid", color: "typescript" },
-        ],
-        fullStack: [
-          "TypeScript", "Lit 3", "CSS Grid", "Rollup", "Vitest",
-          "Home Assistant Frontend API", "Jinja Templates", "YAML", "HACS",
-        ],
-        problem: "Nobody made a good grid layout for Home Assistant tablets. I had a tower of card-mod hacks that kept breaking — so I decided to blend CSS Grid and the native Sections view into one beautiful package that makes wallboards actually striking.",
-        features: "Full CSS Grid control with column spans, responsive breakpoints, per-section styling, Jinja templates for dynamic content, animated overlay alerts triggered by entity state, and kiosk mode for wall-mounted tablets. Drop-in replacement for the native Sections view.",
-        complexity: "Three-tier manager architecture (Background, Overlay, SectionConfig), Jinja template evaluation with entity tracking and debounced re-rendering, YAML config CRUD, safe coexistence with layout-card.",
+        category: "Open source · Home Assistant",
+        problem: "A home dashboard that fits the way you live.",
+        features:
+          "Responsive layouts and thoughtful controls for Home Assistant wallboards and tablets.",
+        detail:
+          "Combines CSS Grid with the native Sections view: column spans, responsive breakpoints, dynamic templates and kiosk mode, without an accumulating pile of styling workarounds.",
+        stack: ["TypeScript", "Lit", "CSS Grid"],
         links: [
-          { label: "GitHub", url: "https://github.com/Stormsys/sections-grid-layout" },
+          {
+            label: "View on GitHub",
+            url: "https://github.com/Stormsys/sections-grid-layout",
+          },
         ],
       },
       {
+        id: "chores",
         name: "ADHD Chore System",
-        tags: [
-          { label: "Python", color: "python" },
-          { label: "Home Assistant", color: "python" },
-        ],
-        fullStack: [
-          "Python 3.11+", "Home Assistant Core", "DataUpdateCoordinator",
-          "Voluptuous", "MQTT", "HA Store", "HACS",
-          "pytest", "freezegun", "488 tests",
-        ],
-        problem: "Todo lists don't work. Reminders get buried or ignored. The friction of opening an app to check off a chore is exactly the thing an ADHD brain won't do.",
-        features: "Zero-friction chore tracking that detects completion through the physical world. Bluetooth beacons in the poop bag holder know when the dog goes out. A contact sensor in a 3D-printed pill bottle triggers when you take vitamins. A camera on the dog bowl uses AI to detect feeding. The washing machine's power draw knows it's done, and the door sensor confirms you actually unloaded it. No app, no check-offs — just do the thing and the house knows.",
-        complexity: "11 pluggable detector types, full state machine (INACTIVE → PENDING → DUE → STARTED → COMPLETED), random announcement generation, reward tracking on completion, persistent state across restarts. 488 tests.",
+        category: "Open source · Automation",
+        problem: "Do the thing. Let the house handle the check-off.",
+        features:
+          "Chore tracking connected to real-world sensors, designed to reduce the effort of remembering and recording everyday tasks.",
+        detail:
+          "A washing machine’s power draw signals that a cycle is done; a door sensor helps confirm it was unloaded. Physical signals replace another app to open and another box to tick.",
+        stack: ["Python", "Home Assistant", "MQTT"],
         links: [
-          { label: "GitHub", url: "https://github.com/Stormsys/home-assistant-chores" },
+          {
+            label: "View on GitHub",
+            url: "https://github.com/Stormsys/home-assistant-chores",
+          },
         ],
       },
       {
-        name: "+ 5 more integrations",
-        tags: [
-          { label: "Python", color: "python" },
-          { label: "OAuth", color: "python" },
-          { label: "HACS", color: "python" },
-        ],
-        fullStack: [
-          "Python 3.11+", "aiohttp", "OAuth 2.0 PKCE",
-          "Firebase Auth", "Firestore", "HTML scraping",
-          "Home Assistant Core", "HACS",
-        ],
-        problem: "Devices and services with no official Home Assistant integration.",
-        features: "Prusa 3D printer monitoring with camera feeds. Ocado delivery tracking. Netgear switch port stats. Roam EV charging sessions. Building package notifications.",
-        complexity: "OAuth 2.0 PKCE auth, HTML scraping (no API exists for Netgear), Firebase token refresh, Firestore document parsing.",
+        id: "integrations",
+        name: "Home Assistant Integrations",
+        category: "Open source · Connected devices",
+        problem: "Making the things that don’t talk to each other, talk.",
+        features:
+          "Custom connections for 3D printing, deliveries, network equipment and EV charging.",
+        detail:
+          "Integrations for Prusa, Ocado, Netgear, Roam EV and building package notifications. Each started with a service I wanted to bring into the same home setup.",
+        stack: ["Python", "Home Assistant"],
         links: [
-          { label: "View all on GitHub", url: "https://github.com/Stormsys?tab=repositories" },
+          {
+            label: "Browse the repositories",
+            url: "https://github.com/Stormsys?tab=repositories",
+          },
         ],
       },
     ],
