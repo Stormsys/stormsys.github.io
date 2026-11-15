@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import GitHubIcon from "./GitHubIcon";
+import Icon from "./Icon";
+import ShuttleSpotlight from "./ShuttleSpotlight";
 import { projectGroups } from "../data/projects";
 
 function ProjectDetails({ project }) {
@@ -33,6 +36,7 @@ function ProjectLinks({ project }) {
           target="_blank"
           rel="noreferrer"
         >
+          {link.url.startsWith("https://github.com/") && <GitHubIcon />}
           {link.label}
           <span aria-hidden="true">↗</span>
           <span className="sr-only"> (opens in a new tab)</span>
@@ -42,6 +46,8 @@ function ProjectLinks({ project }) {
   ) : null;
 }
 function ProjectCard({ project }) {
+  if (project.id === "shuttlestats")
+    return <ShuttleSpotlight project={project} />;
   if (project.featured)
     return (
       <article className="featured-project" aria-labelledby="project-scores">
@@ -97,8 +103,14 @@ function ProjectCard({ project }) {
         <p className="project-description">{project.features}</p>
       )}
       <div className="project-bottom">
+        {project.stack?.length > 0 && (
+          <ul className="project-inline-tags" aria-label="Technologies">
+            {project.stack.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        )}
         <ProjectLinks project={project} />
-        <ProjectDetails project={project} />
       </div>
     </article>
   );
@@ -113,9 +125,12 @@ export default function Projects() {
       ...project,
       number: String(index + 1).padStart(2, "0"),
     }));
-  const visible = projects.filter(
-    (project) => filter === "all" || project.group === filter,
-  );
+  const visible = projects
+    .filter((project) => filter === "all" || project.group === filter)
+    .sort(
+      (a, b) =>
+        Number(b.id === "shuttlestats") - Number(a.id === "shuttlestats"),
+    );
   return (
     <section
       id="projects"
@@ -145,6 +160,15 @@ export default function Projects() {
               aria-pressed={filter === group.id}
               onClick={() => setFilter(group.id)}
             >
+              <Icon
+                name={
+                  group.id === "all"
+                    ? "grid"
+                    : group.id === "badminton"
+                      ? "shuttle"
+                      : "home"
+                }
+              />
               {group.name}
               <span aria-hidden="true">
                 {group.id === "all"

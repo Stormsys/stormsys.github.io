@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./BuildLoop.scss";
 
 const stages = [
@@ -51,7 +51,19 @@ const stages = [
 
 export default function BuildLoop() {
   const [active, setActive] = useState(0);
+  const [flowing, setFlowing] = useState(false);
+  const diagram = useRef(null);
   const tabs = useRef([]);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => setFlowing(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    observer.observe(diagram.current);
+    return () => observer.disconnect();
+  }, []);
 
   function handleKeyDown(event, index) {
     let next;
@@ -67,7 +79,11 @@ export default function BuildLoop() {
   }
 
   return (
-    <div className="build-loop">
+    <div
+      className="build-loop"
+      style={{ "--active-stage": active }}
+      data-flowing={flowing}
+    >
       <div className="build-loop__caption">
         <span>Human judgement × AI assistance</span>
         <span>
@@ -76,9 +92,21 @@ export default function BuildLoop() {
       </div>
       <div
         className="build-loop__tabs"
+        ref={diagram}
         role="tablist"
         aria-label="How I work with AI"
       >
+        <svg
+          className="build-loop__forward"
+          viewBox="0 0 1000 2"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path pathLength="1" d="M100 1 H900" />
+        </svg>
+        <span className="build-loop__selection" aria-hidden="true">
+          <span />
+        </span>
         {stages.map((stage, index) => (
           <button
             key={stage.name}
@@ -104,6 +132,11 @@ export default function BuildLoop() {
         <svg viewBox="0 0 1000 52" preserveAspectRatio="none">
           <path d="M900 1 V23 Q900 39 884 39 H116 Q100 39 100 23 V2" />
           <path d="M94 9 L100 2 L106 9" />
+          <path
+            className="build-loop__feedback-trace"
+            pathLength="1"
+            d="M900 1 V23 Q900 39 884 39 H116 Q100 39 100 23 V2"
+          />
         </svg>
         <span>Every iteration informs the next</span>
       </div>

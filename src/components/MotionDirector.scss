@@ -1,0 +1,120 @@
+.motion-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 100;
+  pointer-events: none;
+  span {
+    display: block;
+    height: 100%;
+    background: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+.motion-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 18px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 12px #2424240a;
+  &:hover {
+    border-color: var(--ink);
+  }
+  &:disabled {
+    cursor: default;
+  }
+}
+.motion-toggle-mark {
+  width: 12px;
+  text-align: center;
+}
+html[data-motion="on"] {
+  .motion-enter {
+    animation: motion-arrive 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .motion-enter:focus-within {
+    animation: none;
+  }
+  .product-devices {
+    transform: translate3d(0, var(--motion-drift, 0px), 0);
+  }
+}
+@keyframes motion-arrive {
+  from {
+    opacity: 0.2;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+html[data-motion="off"] {
+  scroll-behavior: auto;
+  .App *,
+  .App *::before,
+  .App *::after {
+    animation-play-state: paused !important;
+  }
+  .motion-enter {
+    animation: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-progress {
+    display: none;
+  }
+  html[data-motion] .product-devices {
+    transform: none;
+  }
+  .motion-enter {
+    animation: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .motion-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+@media print {
+  .motion-toggle,
+  .motion-progress {
+    display: none;
+  }
+  html[data-motion] .motion-enter {
+    animation: none !important;
+  }
+  html[data-motion] .product-devices {
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  .motion-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .motion-toggle-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}

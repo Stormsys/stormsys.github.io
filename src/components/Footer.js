@@ -1,4 +1,5 @@
 import React from "react";
+import GitHubIcon from "./GitHubIcon";
 export default function Footer() {
   return (
     <footer className="site-footer" id="contact">
@@ -12,10 +13,8 @@ export default function Footer() {
           </h2>
         </div>
         <div className="contact-links">
-          <a className="contact-link" href="mailto:diogo@stormsys.net">
-            diogo@stormsys.net <span aria-hidden="true">↗</span>
-          </a>
           <a
+            className="contact-link"
             href="https://www.linkedin.com/in/diogomoura1"
             target="_blank"
             rel="noreferrer"
@@ -30,7 +29,10 @@ export default function Footer() {
           Diogo Moura <span aria-hidden="true">/</span> London, UK
         </span>
         <nav aria-label="Footer navigation">
-          <a href="https://github.com/Stormsys">GitHub ↗</a>
+          <a href="https://github.com/Stormsys">
+            <GitHubIcon />
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
           <a href="/cv/">CV ↗</a>
           <a href="#top">Back to top ↑</a>
         </nav>

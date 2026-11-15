@@ -1,4 +1,5 @@
 import React from "react";
+import SignalLoom from "./SignalLoom";
 
 export default function Hero() {
   return (
@@ -21,37 +22,32 @@ export default function Hero() {
           DIOGO MOURA <span className="separator">/</span> ENGINEER · LEADER ·
           BUILDER
         </p>
-        <h1>
-          Always a builder.
-          <br />
-          <span>AI changes the pace.</span>
-        </h1>
-        <div className="hero-bottom">
-          <div className="hero-intro">
-            <p>
-              I’m Diogo Moura. I’ve always built things and automated the
-              tedious parts. Now I build with AI at the core—exploring further,
-              moving faster, and turning more ideas into something useful.
-            </p>
-            <div className="hero-actions">
-              <a className="button-primary" href="#projects">
-                Explore the work <span aria-hidden="true">↗</span>
-              </a>
-              <a className="inline-link" href="#contact">
-                Get in touch <span aria-hidden="true">↓</span>
-              </a>
+        <div className="hero-stage">
+          <div className="hero-story">
+            <h1>
+              <span className="hero-line">Always a builder.</span>
+              <span className="hero-line hero-line--signal">
+                AI changes <br />
+                the pace.
+              </span>
+            </h1>
+            <div className="hero-intro">
+              <p>
+                I’m Diogo Moura. Engineer, leader, and a builder long before AI.
+                I’ve always found ways to automate the tedious parts. Now, more
+                of the ideas become real.
+              </p>
+              <div className="hero-actions">
+                <a className="button-primary" href="#projects">
+                  Explore the work <span aria-hidden="true">↗</span>
+                </a>
+                <a className="inline-link" href="#contact">
+                  Let’s talk <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
           </div>
-          <div className="hero-note">
-            <span className="signal-mark" aria-hidden="true">
-              ↗
-            </span>
-            <p>
-              The tools keep evolving.
-              <br />
-              The drive was always there.
-            </p>
-          </div>
+          <SignalLoom />
         </div>
         <div className="hero-meta">
           <span>

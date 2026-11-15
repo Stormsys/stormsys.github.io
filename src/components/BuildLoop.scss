@@ -19,8 +19,58 @@
 }
 
 .build-loop__tabs {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.build-loop__forward {
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2;
+
+  path {
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 0.08 0.92;
+    stroke-dashoffset: 0.08;
+    animation: loop-forward 10s linear infinite;
+    animation-play-state: paused;
+  }
+}
+
+.build-loop[data-flowing="true"] {
+  .build-loop__forward path,
+  .build-loop__feedback-trace {
+    animation-play-state: running;
+  }
+}
+
+.build-loop__selection {
+  position: absolute;
+  width: 20%;
+  top: 2px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  transform: translateX(calc(var(--active-stage) * 100%));
+  transition: transform 580ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+
+  span {
+    width: 58px;
+    height: 58px;
+    border: 1px solid var(--coral);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
 }
 
 .build-loop__tab {
@@ -57,6 +107,7 @@
       background: var(--coral);
       border-color: var(--coral);
       color: var(--ink);
+      animation: loop-node-arrive 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
   }
 
@@ -66,6 +117,9 @@
 }
 
 .build-loop__node {
+  position: relative;
+  z-index: 2;
+  background: var(--dark);
   display: grid;
   place-items: center;
   width: 46px;
@@ -76,9 +130,9 @@
     12px ui-monospace,
     monospace;
   transition:
-    background-color 160ms,
-    border-color 160ms,
-    color 160ms;
+    background-color 240ms,
+    border-color 240ms,
+    color 240ms;
 }
 
 .build-loop__return {
@@ -100,6 +154,15 @@
     }
   }
 
+  .build-loop__feedback-trace {
+    stroke: var(--coral);
+    stroke-width: 2;
+    stroke-dasharray: 0.08 0.92;
+    stroke-dashoffset: 0.08;
+    animation: loop-feedback 10s linear infinite;
+    animation-play-state: paused;
+  }
+
   span {
     position: relative;
     top: -24px;
@@ -119,6 +182,55 @@
 
   &[hidden] {
     display: none;
+  }
+}
+
+@keyframes loop-node-arrive {
+  0% {
+    transform: scale(0.86);
+  }
+  55% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// One signal travels forward, then returns. Copy stays still.
+@keyframes loop-forward {
+  0% {
+    stroke-dashoffset: 0.08;
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.7;
+  }
+  44% {
+    opacity: 0.7;
+  }
+  48%,
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes loop-feedback {
+  0%,
+  49% {
+    stroke-dashoffset: 0.08;
+    opacity: 0;
+  }
+  53% {
+    opacity: 0.7;
+  }
+  94% {
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
   }
 }
 
@@ -214,6 +326,16 @@
     height: 34px;
     font-size: 10px;
   }
+  .build-loop__forward {
+    top: 24px;
+  }
+  .build-loop__selection {
+    top: 3px;
+    span {
+      width: 44px;
+      height: 44px;
+    }
+  }
   .build-loop__return {
     margin-bottom: 16px;
   }
@@ -244,7 +366,26 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .build-loop__node {
-    transition: none;
+  .build-loop *,
+  .build-loop *::before,
+  .build-loop *::after {
+    transition: none !important;
+    animation: none !important;
   }
+  .build-loop__forward,
+  .build-loop__feedback-trace {
+    display: none;
+  }
+}
+
+html[data-motion="off"] .build-loop *,
+html[data-motion="off"] .build-loop *::before,
+html[data-motion="off"] .build-loop *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+html[data-motion="off"] .build-loop__forward,
+html[data-motion="off"] .build-loop__feedback-trace {
+  display: none;
 }
