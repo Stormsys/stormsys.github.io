@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, within } from "@testing-library/react";
-import BuildLoop from "./BuildLoop";
+import BuildLoop, { pulseOverlap } from "./BuildLoop";
 
 test("the build loop works with a single keyboard tab stop and arrow navigation", () => {
   render(<BuildLoop />);
@@ -27,4 +27,13 @@ test("each stage distinguishes human decisions, The engine at work and a useful 
     expect(within(panel).getByRole("heading", {name:/The engine at work/})).toBeInTheDocument();
     expect(within(panel).getByRole("heading", {name:"What moves forward"})).toBeInTheDocument();
   }
+});
+
+
+test("node illumination follows the pulse entering and leaving its physical bounds", () => {
+  expect(pulseOverlap(.44, .36, .5, .05)).toBe(0);
+  expect(pulseOverlap(.47, .39, .5, .05)).toBeCloseTo(.25);
+  expect(pulseOverlap(.54, .46, .5, .05)).toBeCloseTo(1);
+  expect(pulseOverlap(.61, .53, .5, .05)).toBeCloseTo(.25);
+  expect(pulseOverlap(.64, .56, .5, .05)).toBe(0);
 });

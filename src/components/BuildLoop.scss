@@ -415,3 +415,24 @@ html[data-motion="off"] .build-loop__feedback-trace {
   2%, 6% { opacity: 1; transform: scale(1); }
   10%, 100% { opacity: 0; transform: scale(1.12); }
 }
+
+/* One measured clock drives both the travelling line and its overlap with each node. */
+.build-loop__forward path {
+  animation: none;
+  stroke-dasharray: .08 2;
+  stroke-dashoffset: var(--forward-offset, .08);
+  opacity: var(--forward-opacity, 0);
+}
+.build-loop__return .build-loop__feedback-trace {
+  animation: none;
+  stroke-dasharray: .08 2;
+  stroke-dashoffset: var(--return-offset, .08);
+  opacity: var(--return-opacity, 0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-motion="off"]) .build-loop__node::after {
+    animation: none;
+    opacity: var(--node-glow, 0);
+    transform: none;
+  }
+}

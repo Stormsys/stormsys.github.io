@@ -49,11 +49,69 @@ const stages = [
   },
 ];
 
+export function pulseOverlap(head, tail, center, radius) {
+  const overlap = Math.max(0, Math.min(head, center + radius) - Math.max(tail, center - radius));
+  return Math.min(1, overlap / Math.max(0.001, Math.min(head - tail, radius * 2)));
+}
+
 export default function BuildLoop() {
   const [active, setActive] = useState(0);
   const [flowing, setFlowing] = useState(false);
   const diagram = useRef(null);
   const tabs = useRef([]);
+  const elapsed = useRef(0);
+
+  useEffect(() => {
+    if (!flowing) return undefined;
+    const root = diagram.current.closest(".build-loop");
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let previous = null;
+    let radius = 0;
+    const measure = () => {
+      const width = diagram.current.getBoundingClientRect().width * 0.8;
+      const node = tabs.current[0]?.querySelector(".build-loop__node");
+      radius = width > 0 ? node.getBoundingClientRect().width / 2 / width : 0.03;
+    };
+    const draw = (now) => {
+      if (previous !== null) elapsed.current += Math.min(now - previous, 64);
+      previous = now;
+      const phase = (elapsed.current % 10000) / 10000;
+      const head = phase / 0.48 * 1.08;
+      const tail = head - 0.08;
+      root.style.setProperty("--forward-offset", String(0.08 - head));
+      root.style.setProperty("--forward-opacity", phase < 0.48 ? "0.7" : "0");
+      const returning = Math.max(0, (phase - 0.49) / 0.51);
+      root.style.setProperty("--return-offset", String(0.08 - returning * 1.08));
+      root.style.setProperty("--return-opacity", phase >= 0.49 ? "0.7" : "0");
+      tabs.current.forEach((tab, index) => {
+        const glow = phase < 0.48 ? pulseOverlap(head, tail, index / 4, radius) : 0;
+        tab.style.setProperty("--node-glow", String(glow));
+      });
+      frame = requestAnimationFrame(draw);
+    };
+    const sync = () => {
+      cancelAnimationFrame(frame);
+      previous = null;
+      if (!media.matches && !document.hidden && document.documentElement.dataset.motion !== "off") {
+        frame = requestAnimationFrame(draw);
+      }
+    };
+    measure();
+    const resize = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    resize?.observe(diagram.current);
+    media.addEventListener("change", sync);
+    window.addEventListener("portfolio-motion-change", sync);
+    document.addEventListener("visibilitychange", sync);
+    sync();
+    return () => {
+      cancelAnimationFrame(frame);
+      resize?.disconnect();
+      media.removeEventListener("change", sync);
+      window.removeEventListener("portfolio-motion-change", sync);
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, [flowing]);
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined;
@@ -120,7 +178,6 @@ export default function BuildLoop() {
             onClick={() => setActive(index)}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className="build-loop__tab"
-            style={{ "--signal-delay": `${0.2 + index * 1.1}s` }}
           >
             <span className="build-loop__node" aria-hidden="true">
               0{index + 1}
