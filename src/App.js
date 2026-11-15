@@ -7,6 +7,9 @@ import "./App.scss";
 function App() {
   return (
     <div className="App">
+      <a className="skip-link" href="#projects">
+        Skip to projects
+      </a>
       <Hero />
       <Projects />
       <Footer />

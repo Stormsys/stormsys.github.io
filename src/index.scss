@@ -1,73 +1,53 @@
-@import "scss/shared";
-@import "scss/reset";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --bg-dark: #{$bg-dark};
-  --primary: #{$primary};
-  --secondary: #{$secondary};
-  --accent: #{$accent};
-  --text-heading: #{$text-heading};
-  --text-body: #{$text-body};
-  --text-muted: #{$text-muted};
-  --text-dim: #{$text-dim};
+* {
+  box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
-  height: -webkit-fill-available;
+  scroll-padding-top: 32px;
 }
-
 body {
-  color: $text-heading;
-  background: $bg-dark;
-  font-family: $font-family-primary;
-  font-weight: $font-weight-regular;
-  line-height: 1.6;
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   margin: 0;
-  padding: 0;
+  background: #f6f5ef;
+  color: #242d26;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
 }
-
 a {
-  color: $secondary;
+  color: inherit;
   text-decoration: none;
-  transition: color $transition-normal;
-
-  &:hover {
-    color: $accent;
-  }
-
-  &:focus-visible {
-    outline: 2px solid $secondary;
-    outline-offset: 2px;
-    border-radius: $border-radius-sm;
-  }
 }
-
+button {
+  font: inherit;
+}
+button,
+a,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 2px solid #476447;
+  outline-offset: 6px;
+}
 ::selection {
-  background: rgba(124, 146, 176, 0.25);
-  color: $text-heading;
+  background: #d6e8a5;
+  color: #242d26;
 }
-
-::-webkit-scrollbar {
-  width: 6px;
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
 }
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(124, 146, 176, 0.2);
-  border-radius: 3px;
-
-  &:hover {
-    background: rgba(124, 146, 176, 0.35);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
