@@ -29,16 +29,16 @@ export default function Hero() {
         <div className="hero-bottom">
           <div className="hero-intro">
             <p>
-              I’ve always built things and automated the tedious parts. Now I
-              build with AI at the core—exploring further, moving faster, and
-              turning more ideas into something useful.
+              I’m Diogo Moura. I’ve always built things and automated the
+              tedious parts. Now I build with AI at the core—exploring further,
+              moving faster, and turning more ideas into something useful.
             </p>
             <div className="hero-actions">
               <a className="button-primary" href="#projects">
                 Explore the work <span aria-hidden="true">↗</span>
               </a>
-              <a className="inline-link" href="#approach">
-                How I think about building <span aria-hidden="true">↓</span>
+              <a className="inline-link" href="#contact">
+                Get in touch <span aria-hidden="true">↓</span>
               </a>
             </div>
           </div>

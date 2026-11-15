@@ -1,0 +1,250 @@
+.build-loop {
+  margin-top: 52px;
+  --loop-line: #5b5b55;
+
+  :focus-visible {
+    outline-color: var(--coral);
+  }
+}
+
+.build-loop__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 26px;
+  color: #b9b9b4;
+  font:
+    11px/1.5 ui-monospace,
+    monospace;
+}
+
+.build-loop__tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.build-loop__tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 12px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: #c9c9c3;
+  font-size: 14px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: calc(50% + 30px);
+    right: calc(-50% + 30px);
+    top: 31px;
+    height: 1px;
+    background: var(--loop-line);
+    pointer-events: none;
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+
+  &[aria-selected="true"] {
+    color: var(--coral);
+    .build-loop__node {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: var(--ink);
+    }
+  }
+
+  &:hover .build-loop__node {
+    border-color: var(--coral);
+  }
+}
+
+.build-loop__node {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--loop-line);
+  border-radius: 50%;
+  font:
+    12px ui-monospace,
+    monospace;
+  transition:
+    background-color 160ms,
+    border-color 160ms,
+    color 160ms;
+}
+
+.build-loop__return {
+  position: relative;
+  height: 61px;
+  margin-bottom: 25px;
+  text-align: center;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 52px;
+    overflow: visible;
+    fill: none;
+    stroke: var(--loop-line);
+    stroke-width: 1;
+    path {
+      vector-effect: non-scaling-stroke;
+    }
+  }
+
+  span {
+    position: relative;
+    top: -24px;
+    padding: 0 14px;
+    background: var(--dark);
+    color: #b9b9b4;
+    font:
+      10px/1.5 ui-monospace,
+      monospace;
+  }
+}
+
+.build-loop__panel {
+  border-top: 1px solid var(--loop-line);
+  padding-top: 28px;
+  min-height: 244px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.build-loop__panel-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 27px;
+
+  h3 {
+    font-size: clamp(23px, 2.5vw, 32px);
+    line-height: 1.3;
+    letter-spacing: -0.7px;
+    font-weight: 400;
+  }
+}
+
+.build-loop__stage-number {
+  color: var(--coral);
+  font:
+    11px ui-monospace,
+    monospace;
+}
+
+.build-loop__roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  gap: 30px;
+
+  h4 {
+    margin-bottom: 12px;
+    font:
+      11px/1.5 ui-monospace,
+      monospace;
+    font-weight: 400;
+  }
+}
+
+.build-loop__role {
+  p {
+    color: #b9b9b4;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  h4 span {
+    margin-right: 6px;
+  }
+  &--ai h4 {
+    color: var(--coral);
+  }
+}
+
+.build-loop__output {
+  border-left: 1px solid var(--loop-line);
+  padding-left: 25px;
+
+  h4 {
+    color: #b9b9b4;
+  }
+  p {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 19px;
+    line-height: 1.4;
+  }
+  p span {
+    color: var(--coral);
+  }
+}
+
+@media (max-width: 700px) {
+  .build-loop {
+    margin-top: 34px;
+  }
+  .build-loop__caption {
+    font-size: 10px;
+  }
+  .build-loop__caption > span:last-child {
+    display: none;
+  }
+  .build-loop__tab {
+    font-size: 11px;
+    gap: 10px;
+    &::after {
+      left: calc(50% + 20px);
+      right: calc(-50% + 20px);
+      top: 25px;
+    }
+  }
+  .build-loop__node {
+    width: 34px;
+    height: 34px;
+    font-size: 10px;
+  }
+  .build-loop__return {
+    margin-bottom: 16px;
+  }
+  .build-loop__return span {
+    font-size: 9px;
+    padding-inline: 8px;
+  }
+  .build-loop__panel {
+    min-height: 392px;
+    padding-top: 24px;
+  }
+  .build-loop__panel-heading {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .build-loop__roles {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .build-loop__roles h4 {
+    margin-bottom: 8px;
+  }
+  .build-loop__output {
+    border-left: 0;
+    border-top: 1px solid var(--loop-line);
+    padding: 18px 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build-loop__node {
+    transition: none;
+  }
+}
