@@ -95,34 +95,17 @@ afterAll(() => {
   delete window.matchMedia;
 });
 
-test("pause removes entrance state, persists the preference and leaves content available", () => {
-  const { unmount } = mount();
-  const heading = screen.getByRole("heading", { name: "Selected work" });
-  expect(heading).not.toHaveClass("motion-enter");
-  act(() =>
-    intersections[0].callback([{ target: heading, isIntersecting: true }]),
-  );
-  expect(heading).toHaveClass("motion-enter");
-  fireEvent.click(screen.getByRole("button", { name: "Pause motion" }));
-  expect(document.documentElement).toHaveAttribute("data-motion", "off");
-  expect(heading).not.toHaveClass("motion-enter");
-  expect(heading).toBeVisible();
-  expect(localStorage.getItem("portfolio-motion-paused")).toBe("true");
-  expect(document.querySelector(".motion-progress")).toBeNull();
-  expect(intersections[0].disconnect).toHaveBeenCalledTimes(1);
-  unmount();
+test("motion follows device settings without a visible control or legacy pause state", () => {
+  localStorage.setItem("portfolio-motion-paused", "true");
   mount();
-  expect(screen.getByRole("button", { name: "Resume motion" })).toBeEnabled();
-  expect(document.documentElement).toHaveAttribute("data-motion", "off");
-  fireEvent.click(screen.getByRole("button", { name: "Resume motion" }));
+  expect(screen.queryByRole("button")).toBeNull();
   expect(document.documentElement).toHaveAttribute("data-motion", "on");
-  expect(localStorage.getItem("portfolio-motion-paused")).toBe("false");
 });
 
 test("device reduced motion wins over stored preference and updates live", () => {
   reduced.matches = true;
   mount();
-  expect(screen.getByRole("button", { name: "Reduced motion" })).toBeDisabled();
+  expect(screen.queryByRole("button")).toBeNull();
   expect(document.documentElement).toHaveAttribute("data-motion", "off");
   expect(intersections).toHaveLength(0);
   reduced.change(false);
@@ -161,19 +144,6 @@ test("unmount disconnects observers, removes listeners, cancels pending frames a
   );
   expect(artwork.style.getPropertyValue("--motion-drift")).toBe("");
   expect(document.documentElement).toHaveAttribute("data-motion", "existing");
-});
-
-test("blocked storage does not prevent pausing", () => {
-  jest.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
-    throw new Error("Blocked");
-  });
-  jest.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
-    throw new Error("Blocked");
-  });
-  mount();
-  fireEvent.click(screen.getByRole("button", { name: "Pause motion" }));
-  expect(document.documentElement).toHaveAttribute("data-motion", "off");
-  expect(screen.getByRole("heading")).toBeVisible();
 });
 
 test("scroll bursts share one frame and artwork drift remains bounded", () => {

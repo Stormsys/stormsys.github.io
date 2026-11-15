@@ -39,10 +39,13 @@ export default function ShuttleSpotlight({ project }) {
       </div>
       <figure className="shuttle-spotlight__visual">
         <div className="shuttle-spotlight__screen">
+          <div className="shuttle-spotlight__club-header">
+            <img src="/images/shuttlestats-club-selector.png" width="274" height="70" alt="The Badminton Collective club selector" />
+          </div>
           <img
-            src="/images/shuttlestats-current-sessions.jpg"
+            src="/images/shuttlestats-current-sessions.png"
             width="430"
-            height="746"
+            height="748"
             alt="ShuttleStats public product preview showing the upcoming badminton sessions screen."
             loading="lazy"
             decoding="async"

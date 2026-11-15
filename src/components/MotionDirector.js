@@ -5,21 +5,12 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 const ENTRANCES =
   ".section-heading, .shuttle-spotlight, .featured-project, .project-card, .about-heading, .about-copy";
 
-function readPaused() {
-  try {
-    return window.localStorage.getItem("portfolio-motion-paused") === "true";
-  } catch {
-    return false;
-  }
-}
-
 export default function MotionDirector() {
-  const [paused, setPaused] = useState(readPaused);
   const [reduced, setReduced] = useState(
     () => window.matchMedia(REDUCED_MOTION).matches,
   );
   const progress = useRef(null);
-  const enabled = !paused && !reduced;
+  const enabled = !reduced;
 
   useEffect(() => {
     const media = window.matchMedia(REDUCED_MOTION);
@@ -121,18 +112,6 @@ export default function MotionDirector() {
     };
   }, [enabled]);
 
-  const toggle = () => {
-    setPaused((current) => {
-      const next = !current;
-      try {
-        window.localStorage.setItem("portfolio-motion-paused", String(next));
-      } catch {
-        /* Storage may be unavailable. */
-      }
-      return next;
-    });
-  };
-
   return (
     <>
       {enabled && (
@@ -140,26 +119,7 @@ export default function MotionDirector() {
           <span ref={progress} />
         </div>
       )}
-      <button
-        className="motion-toggle"
-        type="button"
-        onClick={toggle}
-        disabled={reduced}
-        title={
-          reduced ? "Reduced motion follows your device setting" : undefined
-        }
-      >
-        <span className="motion-toggle-mark" aria-hidden="true">
-          {enabled ? "Ⅱ" : "▷"}
-        </span>
-        <span className="motion-toggle-label">
-          {reduced
-            ? "Reduced motion"
-            : paused
-              ? "Resume motion"
-              : "Pause motion"}
-        </span>
-      </button>
+
     </>
   );
 }
