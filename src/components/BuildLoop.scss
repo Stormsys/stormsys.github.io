@@ -37,20 +37,7 @@
   stroke: var(--coral);
   stroke-width: 2;
 
-  path {
-    vector-effect: non-scaling-stroke;
-    stroke-dasharray: 0.08 0.92;
-    stroke-dashoffset: 0.08;
-    animation: loop-forward 10s linear infinite;
-    animation-play-state: paused;
-  }
-}
 
-.build-loop[data-flowing="true"] {
-  .build-loop__forward path,
-  .build-loop__feedback-trace {
-    animation-play-state: running;
-  }
 }
 
 .build-loop__selection {
@@ -194,43 +181,6 @@
   }
   100% {
     transform: scale(1);
-  }
-}
-
-// One signal travels forward, then returns. Copy stays still.
-@keyframes loop-forward {
-  0% {
-    stroke-dashoffset: 0.08;
-    opacity: 0;
-  }
-  4% {
-    opacity: 0.7;
-  }
-  44% {
-    opacity: 0.7;
-  }
-  48%,
-  100% {
-    stroke-dashoffset: -1;
-    opacity: 0;
-  }
-}
-
-@keyframes loop-feedback {
-  0%,
-  49% {
-    stroke-dashoffset: 0.08;
-    opacity: 0;
-  }
-  53% {
-    opacity: 0.7;
-  }
-  94% {
-    opacity: 0.7;
-  }
-  100% {
-    stroke-dashoffset: -1;
-    opacity: 0;
   }
 }
 
@@ -395,33 +345,32 @@ html[data-motion="off"] .build-loop__feedback-trace {
   html:not([data-motion="off"]) .build-loop__node::after {
     content: "";
     position: absolute;
-    inset: -4px;
+    inset: -1px;
     border: 2px solid var(--coral);
     border-radius: 50%;
     background: #ffb4a126;
     box-shadow: 0 0 18px #ffb4a14d;
     opacity: 0;
     pointer-events: none;
-    animation: loop-node-signal 10s linear infinite;
-    animation-delay: var(--signal-delay);
-    animation-play-state: paused;
+
   }
-  html:not([data-motion="off"]) .build-loop[data-flowing="true"] .build-loop__node::after {
-    animation-play-state: running;
-  }
-}
-@keyframes loop-node-signal {
-  0% { opacity: 0; transform: scale(.92); }
-  2%, 6% { opacity: 1; transform: scale(1); }
-  10%, 100% { opacity: 0; transform: scale(1.12); }
 }
 
 /* One measured clock drives both the travelling line and its overlap with each node. */
-.build-loop__forward path {
-  animation: none;
-  stroke-dasharray: .08 2;
-  stroke-dashoffset: var(--forward-offset, .08);
+ .build-loop__forward {
+  left: var(--pulse-start, 0px);
+  width: var(--pulse-track-width, 0px);
+  overflow: hidden;
   opacity: var(--forward-opacity, 0);
+}
+.build-loop__pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: var(--pulse-width, 0px);
+  transform: translateX(var(--pulse-left, 0px));
+  background: var(--coral);
 }
 .build-loop__return .build-loop__feedback-trace {
   animation: none;

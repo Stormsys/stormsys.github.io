@@ -67,25 +67,37 @@ export default function BuildLoop() {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
     let previous = null;
-    let radius = 0;
+    let nodes = [];
+    let start = 0;
+    let end = 0;
+    let pulseWidth = 0;
     const measure = () => {
-      const width = diagram.current.getBoundingClientRect().width * 0.8;
-      const node = tabs.current[0]?.querySelector(".build-loop__node");
-      radius = width > 0 ? node.getBoundingClientRect().width / 2 / width : 0.03;
+      const box = diagram.current.getBoundingClientRect();
+      nodes = tabs.current.map(tab => {
+        const node = tab.querySelector(".build-loop__node");
+        const rect = node.getBoundingClientRect();
+        return { center: rect.left + rect.width / 2 - box.left, radius: node.offsetWidth / 2 };
+      });
+      start = nodes[0].center - nodes[0].radius;
+      end = nodes[nodes.length - 1].center + nodes[nodes.length - 1].radius;
+      pulseWidth = Math.min(64, Math.max(24, (end - start) * 0.08));
+      root.style.setProperty("--pulse-start", `${start}px`);
+      root.style.setProperty("--pulse-track-width", `${end - start}px`);
+      root.style.setProperty("--pulse-width", `${pulseWidth}px`);
     };
     const draw = (now) => {
       if (previous !== null) elapsed.current += Math.min(now - previous, 64);
       previous = now;
       const phase = (elapsed.current % 10000) / 10000;
-      const head = phase / 0.48 * 1.08;
-      const tail = head - 0.08;
-      root.style.setProperty("--forward-offset", String(0.08 - head));
+      const head = start + phase / 0.48 * (end - start + pulseWidth);
+      const tail = head - pulseWidth;
+      root.style.setProperty("--pulse-left", `${tail - start}px`);
       root.style.setProperty("--forward-opacity", phase < 0.48 ? "0.7" : "0");
       const returning = Math.max(0, (phase - 0.49) / 0.51);
       root.style.setProperty("--return-offset", String(0.08 - returning * 1.08));
       root.style.setProperty("--return-opacity", phase >= 0.49 ? "0.7" : "0");
       tabs.current.forEach((tab, index) => {
-        const glow = phase < 0.48 ? pulseOverlap(head, tail, index / 4, radius) : 0;
+        const glow = phase < 0.48 ? pulseOverlap(head, tail, nodes[index].center, nodes[index].radius) : 0;
         tab.style.setProperty("--node-glow", String(glow));
       });
       frame = requestAnimationFrame(draw);
@@ -154,14 +166,9 @@ export default function BuildLoop() {
         role="tablist"
         aria-label="How I work with AI"
       >
-        <svg
-          className="build-loop__forward"
-          viewBox="0 0 1000 2"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path pathLength="1" d="M100 1 H900" />
-        </svg>
+        <span className="build-loop__forward" aria-hidden="true">
+          <span className="build-loop__pulse" />
+        </span>
         <span className="build-loop__selection" aria-hidden="true">
           <span />
         </span>
