@@ -7,6 +7,22 @@
   --line: #d3d3ce;
   --surface: #e8e8e4;
   --dark: #222222;
+  --font-human: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-system: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --line-strong: #c7c6c2;
+  --line-dark: #5b5b55;
+  --muted-dark: #b9b9b4;
+  /* One type scale: 12 · 14 · 16 · 18 · 20 · 24 · 28 · 32 · 36, then display. */
+  --text-label: 12px;
+  --text-small: 14px;
+  --text-body: 16px;
+  --text-lead: 18px;
+  --radius-control: 999px;
+  --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-fast: 200ms;
+  --motion-medium: 600ms;
+  --motion-slow: 800ms;
+  --section-space: clamp(64px, 7vw, 100px);
   --gutter: clamp(22px, 6vw, 88px);
   color-scheme: light;
 }
@@ -15,13 +31,13 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 88px;
 }
 body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-human);
   -webkit-font-smoothing: antialiased;
   line-height: 1.65;
 }
@@ -55,6 +71,17 @@ h4,
 p,
 figure {
   margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+blockquote p {
+  text-wrap: balance;
+}
+p,
+dd {
+  text-wrap: pretty;
 }
 button,
 summary,

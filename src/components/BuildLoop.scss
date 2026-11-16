@@ -1,6 +1,6 @@
 .build-loop {
   margin-top: 52px;
-  --loop-line: #5b5b55;
+  --loop-line: var(--line-dark);
 
   :focus-visible {
     outline-color: var(--coral);
@@ -12,9 +12,9 @@
   justify-content: space-between;
   gap: 16px;
   padding-bottom: 26px;
-  color: #b9b9b4;
+  color: var(--muted-dark);
   font:
-    11px/1.5 ui-monospace,
+    12px/1.5 ui-monospace,
     monospace;
 }
 
@@ -48,7 +48,7 @@
   display: flex;
   justify-content: center;
   transform: translateX(calc(var(--active-stage) * 100%));
-  transition: transform 580ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--motion-medium) var(--ease-ui);
   pointer-events: none;
 
   span {
@@ -94,7 +94,7 @@
       background: var(--coral);
       border-color: var(--coral);
       color: var(--ink);
-      animation: loop-node-arrive 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: loop-node-arrive var(--motion-medium) var(--ease-ui) both;
     }
   }
 
@@ -117,9 +117,9 @@
     12px ui-monospace,
     monospace;
   transition:
-    background-color 240ms,
-    border-color 240ms,
-    color 240ms;
+    background-color var(--motion-fast),
+    border-color var(--motion-fast),
+    color var(--motion-fast);
 }
 
 .build-loop__return {
@@ -155,9 +155,9 @@
     top: -24px;
     padding: 0 14px;
     background: var(--dark);
-    color: #b9b9b4;
+    color: var(--muted-dark);
     font:
-      10px/1.5 ui-monospace,
+      12px/1.5 ui-monospace,
       monospace;
   }
 }
@@ -191,7 +191,7 @@
   margin-bottom: 27px;
 
   h3 {
-    font-size: clamp(23px, 2.5vw, 32px);
+    font-size: clamp(24px, 2.5vw, 32px);
     line-height: 1.3;
     letter-spacing: -0.7px;
     font-weight: 400;
@@ -201,7 +201,7 @@
 .build-loop__stage-number {
   color: var(--coral);
   font:
-    11px ui-monospace,
+    12px ui-monospace,
     monospace;
 }
 
@@ -213,7 +213,7 @@
   h4 {
     margin-bottom: 12px;
     font:
-      11px/1.5 ui-monospace,
+      12px/1.5 ui-monospace,
       monospace;
     font-weight: 400;
   }
@@ -221,7 +221,7 @@
 
 .build-loop__role {
   p {
-    color: #b9b9b4;
+    color: var(--muted-dark);
     font-size: 14px;
     line-height: 1.8;
   }
@@ -238,13 +238,13 @@
   padding-left: 25px;
 
   h4 {
-    color: #b9b9b4;
+    color: var(--muted-dark);
   }
   p {
     display: flex;
     justify-content: space-between;
     gap: 15px;
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1.4;
   }
   p span {
@@ -257,13 +257,13 @@
     margin-top: 34px;
   }
   .build-loop__caption {
-    font-size: 10px;
+    font-size: 12px;
   }
   .build-loop__caption > span:last-child {
     display: none;
   }
   .build-loop__tab {
-    font-size: 11px;
+    font-size: 12px;
     gap: 10px;
     &::after {
       left: calc(50% + 20px);
@@ -274,7 +274,7 @@
   .build-loop__node {
     width: 34px;
     height: 34px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .build-loop__forward {
     top: 24px;
@@ -290,7 +290,7 @@
     margin-bottom: 16px;
   }
   .build-loop__return span {
-    font-size: 9px;
+    font-size: 12px;
     padding-inline: 8px;
   }
   .build-loop__panel {
@@ -384,4 +384,154 @@ html[data-motion="off"] .build-loop__feedback-trace {
     opacity: var(--node-glow, 0);
     transform: none;
   }
+}
+
+.build-loop__caption, .build-loop__return span,
+.build-loop__roles h4, .build-loop__stage-number {
+  font-family: var(--font-human);
+  font-size: var(--text-label);
+}
+.build-loop__role--ai h4 { font-family: var(--font-system); }
+
+/* Story pass: the loop keeps its diagram and pulse and runs edge to edge of the
+   section grid; the step detail is one calm statement on that same grid. */
+.build-loop {
+  --loop-r: 29px;
+  margin-top: clamp(40px, 5vw, 64px);
+  /* The widened diagram's empty button edges reach past the page; clip them
+     here, a little outside the grid so the outer rings keep their glow. */
+  margin-inline: -20px;
+  padding-inline: 20px;
+  overflow-x: clip;
+}
+/* Five equal columns put the first circle a tenth in. Widen the diagram so the
+   outer circles sit on the grid's edges instead. */
+.build-loop__tabs,
+.build-loop__return {
+  margin-inline: calc(-12.5% + var(--loop-r) * 1.25);
+}
+.build-loop__return { height: 52px; margin-bottom: clamp(32px, 4vw, 56px); }
+.build-loop__panel {
+  display: grid;
+  grid-template-columns: var(--grid, 1.15fr 1fr);
+  column-gap: var(--grid-gap, 48px);
+  align-items: baseline;
+  padding-top: 0;
+  border-top: 0;
+  min-height: 0;
+
+  &[hidden] { display: none; }
+  &:focus-visible { outline-offset: 12px; }
+}
+.build-loop__lead h3 {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.build-loop__output {
+  margin-top: 10px;
+  padding-left: 0;
+  border-left: 0;
+
+  p {
+    display: block;
+    color: var(--muted-dark);
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+}
+.build-loop__roles {
+  display: block;
+  max-width: 48ch;
+}
+.build-loop__role p {
+  color: var(--paper);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  opacity: 1;
+  text-wrap: pretty;
+}
+.build-loop__role--ai {
+  margin-top: 12px;
+
+  p { color: var(--muted-dark); }
+}
+/* Reserve the tallest stage so switching never moves what follows. */
+@media (min-width: 1200px) { .build-loop__panel { min-height: 172px; } }
+
+/* Working nodes on the loop's lines, each on its own clock (workingNodes.js).
+   They only exist while motion is on. */
+.build-loop__agents {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  top: 31.5px;
+  pointer-events: none;
+
+  b {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    margin: -2.5px 0 0 -2.5px;
+    border-radius: 50%;
+    background: var(--paper);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .is-bright {
+    background: var(--coral);
+    box-shadow: 0 0 8px rgba(255, 180, 161, 0.55);
+  }
+}
+.build-loop__return .build-loop__agents {
+  position: absolute;
+  top: 39px;
+  padding: 0;
+  background: none;
+}
+
+@media (max-width: 700px) {
+  .build-loop { --loop-r: 22px; margin-top: 32px; }
+  .build-loop__return { margin-bottom: 28px; }
+  .build-loop__panel { grid-template-columns: minmax(0, 1fr); row-gap: 16px; min-height: 0; }
+  .build-loop__output { border-top: 0; padding: 0; }
+  .build-loop__agents { top: 25.5px; }
+  .build-loop__return .build-loop__agents { top: 39px; }
+}
+
+/* Changing step: the new statement settles in, heading first. One curve, no
+   bounce; off with reduced motion (see the motion rules above). */
+@keyframes loop-settle {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-motion="off"]) .build-loop__panel:not([hidden]) > * {
+    animation: loop-settle 520ms var(--ease-ui) both;
+  }
+  html:not([data-motion="off"]) .build-loop__panel:not([hidden]) > .build-loop__roles {
+    animation-delay: 90ms;
+  }
+}
+.build-loop__tab,
+.build-loop__node {
+  transition:
+    color var(--motion-fast) var(--ease-ui),
+    border-color var(--motion-fast) var(--ease-ui),
+    background-color var(--motion-fast) var(--ease-ui);
+}
+
+/* Phone: the step detail reads in clear steps, not as one dense run. The step
+   heading matches the closing headings; its outcome line is the small quiet
+   one; the two paragraphs share one size with room between them. */
+@media (max-width: 700px) {
+  .build-loop__panel { row-gap: 22px; }
+  .build-loop__lead h3 { font-size: 24px; line-height: 1.2; }
+  .build-loop__output { margin-top: 8px; }
+  .build-loop__output p { font-size: var(--text-small); line-height: 1.5; }
+  .build-loop__role p { font-size: var(--text-body); line-height: 1.6; }
+  .build-loop__role--ai { margin-top: 16px; }
 }

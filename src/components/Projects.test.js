@@ -5,10 +5,11 @@ import Projects from "./Projects";
 test("keeps ShuttleStats deliberately high-level", () => {
   render(<Projects />);
   const teaser = screen.getByRole("article", { name: "ShuttleStats" });
-  expect(within(teaser).getByRole("link")).toHaveAttribute(
-    "href",
-    "https://shuttlestats.app/learn",
-  );
+  // Two actions inside the card: the product, and the case study below.
+  expect(
+    within(teaser).getAllByRole("link").map((link) => link.getAttribute("href")),
+  ).toEqual(["https://shuttlestats.app/learn", "#proof"]);
+  expect(within(teaser).getByRole("link", { name: /See the numbers/ })).toBeInTheDocument();
   expect(teaser.querySelector("details")).toBeNull();
   expect(teaser).not.toHaveTextContent(
     /DynamoDB|JWT|matchmaking|tests|Badminton Club Stats/i,
@@ -30,4 +31,10 @@ test("filters projects and announces the result without changing project identit
   expect(
     screen.getByRole("article", { name: "ShuttleStats" }),
   ).toBeInTheDocument();
+});
+
+test("no project card carries a note that is not the owner's wording", () => {
+  const { container } = render(<Projects />);
+  expect(container).not.toHaveTextContent(/Private build for my club/i);
+  expect(container.querySelector(".project-note")).toBeNull();
 });
