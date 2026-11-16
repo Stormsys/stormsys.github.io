@@ -40,6 +40,27 @@ function symbolsIn(text, extension) {
   return found;
 }
 
+// Ordinary characters doing an icon's job: a plus, minus, multiplication sign,
+// bullet or chevron that is the whole text of an element, a string in markup or
+// a CSS content value. The same characters inside a sentence are punctuation.
+const LONE = "[+<>\\u2212\\u00d7\\u2022\\u2039\\u203a\\u00ab\\u00bb]";
+const NAMED = "&(?:gt|lt|times|plus|minus|bull|rsaquo|lsaquo|raquo|laquo);";
+const LONE_ICON = new RegExp(
+  [
+    `>\\s*(?:[+\\u2212\\u00d7\\u2022\\u2039\\u203a\\u00ab\\u00bb]|${NAMED})\\s*</`,
+    `\\{\\s*["'\`]\\s*${LONE}\\s*["'\`]\\s*\\}`,
+    `content:\\s*["']\\s*${LONE}\\s*["']`,
+  ].join("|"),
+  "g",
+);
+
+function loneIconsIn(text, extension) {
+  const clean = withoutComments(text, extension);
+  return [...clean.matchAll(LONE_ICON)].map(
+    (match) => `line ${clean.slice(0, match.index).split("\n").length}: a lone character used as an icon`,
+  );
+}
+
 function files(directory, extensions) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(directory, entry.name);
@@ -67,6 +88,26 @@ test("no emoji or symbol character is used as an icon anywhere in the app", () =
   expect(scanned.length).toBeGreaterThan(10);
   const offenders = scanned.flatMap((file) =>
     symbolsIn(fs.readFileSync(file, "utf8"), path.extname(file)).map(
+      (hit) => `${path.relative(root, file)} ${hit}`,
+    ),
+  );
+  expect(offenders).toEqual([]);
+});
+
+test("the scan finds a lone character used as an icon, and leaves punctuation alone", () => {
+  const plus = String.fromCodePoint(0x2b);
+  const times = String.fromCodePoint(0xd7);
+  expect(loneIconsIn(`<span aria-hidden="true">\n  ${plus}\n</span>`, ".js")).toHaveLength(1);
+  expect(loneIconsIn(`<span>{"${times}"}</span>`, ".js")).toHaveLength(1);
+  expect(loneIconsIn(`a::after { content: "${plus}"; }`, ".scss")).toHaveLength(1);
+  expect(loneIconsIn(`<b>&${"times"};</b>`, ".html")).toHaveLength(1);
+  expect(loneIconsIn(`<span>HUMAN INSTINCT ${times} AI</span>`, ".js")).toEqual([]);
+  expect(loneIconsIn(`<span>.</span><span>/</span> a ${plus} b`, ".js")).toEqual([]);
+});
+
+test("no ordinary character stands in for an icon anywhere in the app", () => {
+  const offenders = scanned.flatMap((file) =>
+    loneIconsIn(fs.readFileSync(file, "utf8"), path.extname(file)).map(
       (hit) => `${path.relative(root, file)} ${hit}`,
     ),
   );

@@ -11,7 +11,7 @@ function ProjectDetails({ project }) {
       <summary>
         Behind the build <span className="sr-only">: {project.name}</span>
         <span className="details-icon" aria-hidden="true">
-          +
+          <Icon name="plus" weight={1.35} />
         </span>
       </summary>
       <div className="project-expanded">

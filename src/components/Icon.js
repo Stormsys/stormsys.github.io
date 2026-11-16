@@ -8,6 +8,7 @@ const arrows = {
   "arrow-down": "M12 5v14M19 12l-7 7-7-7",
   "arrow-up": "m5 12 7-7 7 7M12 19V5",
   "arrow-left": "m12 19-7-7 7-7M19 12H5",
+  plus: "M5 12h14M12 5v14",
 };
 const paths = {
   grid: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z",
