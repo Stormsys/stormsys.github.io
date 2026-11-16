@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <>
       <nav className="site-nav" aria-label="Main navigation" ref={nav}>
-        <a className="wordmark" href="#top" aria-label="Diogo Moura — home">
+        <a className="wordmark" href="#top" aria-label="dm. Diogo Moura — home">
           dm<span>.</span>
         </a>
         <div>

@@ -33,6 +33,20 @@ test("filters projects and announces the result without changing project identit
   ).toBeInTheDocument();
 });
 
+test("every link has a name of its own and the filters are a named group", () => {
+  render(<Projects />);
+  const names = screen
+    .getAllByRole("link")
+    .map((link) => link.textContent.replace(/\s+/g, " ").trim());
+  expect(names.length).toBeGreaterThan(5);
+  expect(new Set(names).size).toBe(names.length);
+  expect(
+    within(screen.getByRole("group", { name: "Filter projects" })).getAllByRole(
+      "button",
+    ),
+  ).toHaveLength(3);
+});
+
 test("no project card carries a note that is not the owner's wording", () => {
   const { container } = render(<Projects />);
   expect(container).not.toHaveTextContent(/Private build for my club/i);
