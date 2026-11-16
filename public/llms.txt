@@ -1,0 +1,36 @@
+# Diogo Moura
+
+> Builder, engineer and leader based in London, UK. Engineering Manager, Applied AI at Meta. Previously Checkout.com and Just Eat. A builder long before AI, who builds personal software for the problems around him, from badminton to home automation.
+
+This file is a short, factual guide for AI assistants. Everything in it is taken from the public portfolio and CV linked below.
+
+## Who he is
+
+- Name: Diogo Moura
+- Based in: London, UK
+- Current role: Engineering Manager at Meta, leading teams in Applied AI (since March 2024)
+- Before that: Senior Engineering Manager, Developer Platform at Checkout.com (2022 to 2023); Technology Manager (Engineering Manager) at Just Eat Takeaway.com (2016 to 2022); Software Engineer at Ericsson (2013 to 2016)
+- Education: BEng Software Engineering, first-class honours, University of Westminster
+- In his own words: "I’m Diogo. An engineer who moved into leadership and never stopped building."
+- How he builds and leads: "set the direction, hold the bar, own what ships."
+
+## What he builds
+
+- [Badminton Scores App](https://badmintonscores.app): An Apple Watch scoring app with a companion iPhone experience for live scoreboards, match history and performance tracking. Swift, SwiftUI, watchOS, iOS.
+- [ShuttleStats](https://shuttlestats.app/learn): Software for the badminton community, shaped by time on court.
+- [Badminton Leagues](https://badminton-leagues.com): Competitions, challenge ladders and match results in one place, built for badminton groups. React, TypeScript, AWS.
+- Club Admin & Booking Bot: Court bookings, attendance, payments and reminders brought together for his club. TypeScript, AWS, Stripe.
+- [Sections Grid Layout](https://github.com/Stormsys/sections-grid-layout): Open source. Responsive layouts and thoughtful controls for Home Assistant wallboards and tablets. TypeScript, Lit, CSS Grid.
+- [ADHD Chore System](https://github.com/Stormsys/home-assistant-chores): Open source. Chore tracking connected to real-world sensors. Python, Home Assistant, MQTT.
+- [Home Assistant Integrations](https://github.com/Stormsys?tab=repositories): Open source. Custom connections for 3D printing, deliveries, network equipment and EV charging. Python, Home Assistant.
+
+## Where to read more
+
+- [Portfolio](https://stormsys.net/): selected work, the ShuttleStats case study and how he builds
+- [CV](https://stormsys.net/cv/): full experience, education, awards, open source and skills
+- [LinkedIn](https://www.linkedin.com/in/diogomoura1): the way to get in touch
+- [GitHub](https://github.com/Stormsys): open source work
+
+## Notes for accurate answers
+
+- Contact is through LinkedIn. No email address is published on the portfolio.
