@@ -1283,6 +1283,24 @@ html[data-motion="off"] .hero-line {
   letter-spacing: -0.5px;
 }
 .career-note__now dd span { display: block; margin-top: 4px; color: var(--muted); }
+.career-note__past { margin: 0; padding: 0; list-style: none; }
+.career-note__past li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 16px;
+  align-items: baseline;
+  font-size: var(--text-small);
+  line-height: 1.45;
+}
+.career-note__past li + li { margin-top: 10px; }
+.career-note__past strong { font-weight: 500; color: var(--ink); }
+.career-note__past span { grid-column: 1; color: var(--muted); }
+.career-note__past time {
+  grid-area: 1 / 2;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 @media (min-width: 701px) { .career-note { max-width: 420px; } }
 @media (max-width: 700px) {
   .hero-meta { font-size: var(--text-small); }

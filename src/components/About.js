@@ -1,6 +1,12 @@
 import React from "react";
 import HobbyIcon from "./HobbyIcon";
 
+const PREVIOUSLY = [
+  ["Checkout.com", "Senior Engineering Manager", "2022 to 2023"],
+  ["Just Eat", "Engineering Manager", "2016 to 2022"],
+  ["Ericsson", "Software Engineer", "2013 to 2016"],
+];
+
 const HOBBIES = [
   ["shuttlecock", "Badminton"],
   ["glove", "Boxing"],
@@ -29,7 +35,17 @@ export default function About() {
           </div>
           <div>
             <dt>Previously</dt>
-            <dd>Checkout.com · Just Eat · Ericsson</dd>
+            <dd>
+              <ul className="career-note__past">
+                {PREVIOUSLY.map(([company, role, years]) => (
+                  <li key={company}>
+                    <strong>{company}</strong>
+                    <span>{role}</span>
+                    <time>{years}</time>
+                  </li>
+                ))}
+              </ul>
+            </dd>
           </div>
         </dl>
         <a className="inline-link" href="/cv/">

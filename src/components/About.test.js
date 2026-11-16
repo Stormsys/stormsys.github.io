@@ -25,3 +25,15 @@ test("each hobby is a word with a decorative icon", () => {
     expect(item.querySelector("svg")).toHaveAttribute("aria-hidden", "true"),
   );
 });
+
+test("Previously is a short list of company, role and years", () => {
+  const { container } = render(<About />);
+  const past = [...container.querySelectorAll(".career-note__past li")].map(
+    (item) => [...item.children].map((node) => node.textContent),
+  );
+  expect(past).toEqual([
+    ["Checkout.com", "Senior Engineering Manager", "2022 to 2023"],
+    ["Just Eat", "Engineering Manager", "2016 to 2022"],
+    ["Ericsson", "Software Engineer", "2013 to 2016"],
+  ]);
+});
