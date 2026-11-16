@@ -11,7 +11,7 @@ test("the loom keeps its frame and can be amplified and reset accessibly", () =>
   expect(container.querySelector(".signal-loom__art")).toHaveAttribute("aria-hidden", "true");
   expect(container.querySelector("canvas")).toBeInTheDocument();
   expect(container).toHaveTextContent("HUMAN INSTINCT × AI");
-  expect(container).toHaveTextContent("One ideaMore possibilitiesMade useful");
+  expect(container).toHaveTextContent("One idea More possibilities Made useful");
   expect(container).toHaveTextContent("The instinct stays.The possibilities expand.");
   const button = screen.getByRole("button", { name: /Amplify/ });
   expect(button).toHaveAttribute("aria-pressed", "false");

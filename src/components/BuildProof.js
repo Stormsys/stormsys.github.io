@@ -22,7 +22,7 @@ export function Beat({ lead, rest, figure, line, note, id, quiet, children }) {
             <span>{lead}</span> <span>{rest}</span>
           </h3>
           <p className="story-beat__proof">
-            <b>{figure}</b>
+            <b>{figure}</b>{" "}
             <span>{line}</span>
             {note && <span className="story-beat__note">{note}</span>}
           </p>

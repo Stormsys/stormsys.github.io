@@ -7,12 +7,18 @@ const ENTRANCES =
 
 export default function MotionDirector() {
   const [reduced, setReduced] = useState(
-    () => window.matchMedia(REDUCED_MOTION).matches,
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(REDUCED_MOTION).matches,
   );
+  // The progress bar joins after the first render, so the first render is the
+  // same markup wherever it happens: at build time or in the browser.
+  const [mounted, setMounted] = useState(false);
   const progress = useRef(null);
   const enabled = !reduced;
 
   useEffect(() => {
+    setMounted(true);
     const media = window.matchMedia(REDUCED_MOTION);
     const update = () => setReduced(media.matches);
     media.addEventListener("change", update);
@@ -26,6 +32,17 @@ export default function MotionDirector() {
     window.dispatchEvent(
       new CustomEvent("portfolio-motion-change", { detail: { enabled } }),
     );
+    // A prerendered page holds its entrances at their starting pose (see the
+    // script in public/index.html). The hold shifts them down, so on release
+    // re-measure the ones the observer saw as not yet in view.
+    const release = () => root.removeAttribute("data-motion-wait");
+    const inView = (element) => {
+      const box = element.getBoundingClientRect();
+      const shown =
+        Math.min(window.innerHeight, box.bottom) - Math.max(0, box.top);
+      return box.height > 0 && shown / box.height >= 0.08;
+    };
+    if (!enabled || !("IntersectionObserver" in window)) release();
     if (!enabled)
       return () => {
         if (previous === null) root.removeAttribute("data-motion");
@@ -39,8 +56,10 @@ export default function MotionDirector() {
       "IntersectionObserver" in window
         ? new IntersectionObserver(
             (entries) => {
+              const held = root.hasAttribute("data-motion-wait");
+              release();
               entries.forEach(({ target, isIntersecting }) => {
-                if (!isIntersecting) return;
+                if (!isIntersecting && !(held && inView(target))) return;
                 target.classList.add("motion-enter");
                 animated.add(target);
                 observer.unobserve(target);
@@ -114,7 +133,7 @@ export default function MotionDirector() {
 
   return (
     <>
-      {enabled && (
+      {mounted && enabled && (
         <div className="motion-progress" aria-hidden="true">
           <span ref={progress} />
         </div>

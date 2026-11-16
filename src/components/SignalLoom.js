@@ -379,8 +379,8 @@ export default function SignalLoom({ seed = SEED }) {
       </div>
       <figcaption>
         <div className="signal-loom__labels">
-          <span>One idea</span>
-          <span>More possibilities</span>
+          <span>One idea</span>{" "}
+          <span>More possibilities</span>{" "}
           <span>Made useful</span>
         </div>
         <div className="signal-loom__bottom">
