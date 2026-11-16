@@ -12,7 +12,7 @@
   justify-content: space-between;
   color: var(--muted);
   font:
-    10px/1.5 ui-monospace,
+    12px/1.5 ui-monospace,
     monospace;
   letter-spacing: 1.2px;
   padding: 16px 0;
@@ -25,78 +25,21 @@
 .signal-loom__art {
   transform: translateY(var(--loom-scroll)) rotateX(var(--loom-x))
     rotateY(var(--loom-y));
-  transition: transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform var(--motion-medium) var(--ease-ui);
 }
-.signal-loom__art svg {
+/* The frame is reserved before the first paint, so nothing shifts. */
+.signal-loom__art canvas {
   display: block;
   width: 100%;
-  overflow: visible;
-}
-.loom-axis {
-  stroke: var(--line);
-  stroke-width: 0.7;
-  stroke-dasharray: 2 7;
-}
-.loom-thread-shape {
-  transform-origin: 300px 180px;
-  transform: scaleY(0.56);
-  transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.is-amplified .loom-thread-shape {
-  transform: scaleY(1.12);
-}
-.loom-thread {
-  stroke: var(--signal);
-  stroke-width: 0.7;
-  opacity: 0.44;
-}
-.loom-thread:nth-child(3n) {
-  stroke: var(--ink);
-  opacity: 0.26;
-}
-.loom-source {
-  fill: var(--signal);
-}
-.loom-result {
-  fill: var(--ink);
-}
-.loom-result-tick {
-  stroke: var(--paper);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.loom-travellers path {
-  stroke: var(--signal);
-  stroke-width: 1.4;
-  stroke-dasharray: 9 101;
-  stroke-dashoffset: 10;
-  opacity: 0;
-  animation: loom-travel 2200ms cubic-bezier(0.4, 0, 0.2, 1) both;
-  animation-delay: calc(var(--thread) * 65ms);
-}
-@keyframes loom-travel {
-  0% {
-    stroke-dashoffset: 10;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: -100;
-    opacity: 0;
-  }
+  aspect-ratio: 600 / 360;
+  touch-action: pan-y;
 }
 .signal-loom__labels {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   font:
-    10px/1.5 ui-monospace,
+    12px/1.5 ui-monospace,
     monospace;
   color: var(--muted);
   margin-top: 3px;
@@ -129,14 +72,14 @@
   min-height: 44px;
   padding: 10px 14px;
   border: 1px solid var(--line);
-  border-radius: 30px;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 12px;
   transition:
-    background 180ms,
-    border-color 180ms,
-    transform 180ms;
+    background var(--motion-fast),
+    border-color var(--motion-fast),
+    transform var(--motion-fast);
 }
 .signal-loom__bottom button:hover {
   background: var(--ink);
@@ -147,7 +90,7 @@
   transform: scale(0.96);
 }
 .signal-loom__bottom button svg {
-  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform var(--motion-medium) var(--ease-ui);
 }
 .is-amplified .signal-loom__bottom button svg {
   transform: rotate(135deg);
@@ -180,10 +123,10 @@ html[data-motion="off"] .signal-loom__art {
     margin-top: 20px;
   }
   .signal-loom__topline {
-    font-size: 9px;
+    font-size: 12px;
   }
   .signal-loom__labels {
-    font-size: 9px;
+    font-size: 12px;
   }
 }
 @media print {

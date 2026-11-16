@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import SignalLoom from "./SignalLoom";
 
+// The header takes the tone of the section passing beneath it, so it never
+// slices the dark section with a light bar. An observer watches a thin line at
+// the header's middle; no scroll handler.
+function useNavTone(nav) {
+  useEffect(() => {
+    const dark = document.querySelector(".approach");
+    if (!dark || typeof IntersectionObserver === "undefined") return undefined;
+    let observer;
+    const watch = () => {
+      observer?.disconnect();
+      const middle = Math.round(nav.current.offsetHeight / 2);
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          nav.current.dataset.tone = entry.isIntersecting ? "dark" : "light";
+        },
+        {
+          rootMargin: `-${middle}px 0px -${Math.max(0, window.innerHeight - middle - 1)}px 0px`,
+        },
+      );
+      observer.observe(dark);
+    };
+    watch();
+    window.addEventListener("resize", watch);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", watch);
+    };
+  }, [nav]);
+}
+
 export default function Hero() {
+  const nav = useRef(null);
+  useNavTone(nav);
   return (
     <>
-      <nav className="site-nav" aria-label="Main navigation">
+      <nav className="site-nav" aria-label="Main navigation" ref={nav}>
         <a className="wordmark" href="#top" aria-label="Diogo Moura — home">
           dm<span>.</span>
         </a>
@@ -19,30 +51,30 @@ export default function Hero() {
       </nav>
       <header className="hero" id="top">
         <p className="eyebrow">
-          DIOGO MOURA <span className="separator">/</span> ENGINEER · LEADER ·
-          BUILDER
+          DIOGO MOURA <span className="separator">/</span> BUILDER · ENGINEER ·
+          LEADER
         </p>
         <div className="hero-stage">
           <div className="hero-story">
             <h1>
-              <span className="hero-line">Always a builder.</span>
+              <span className="hero-line">Feel the friction.</span>
               <span className="hero-line hero-line--signal">
-                AI changes <br />
-                the pace.
+                Build beyond it.
               </span>
             </h1>
             <div className="hero-intro">
               <p>
-                I’m Diogo Moura. Engineer, leader, and a builder long before AI.
-                I’ve always found ways to automate the tedious parts. Now, more
-                of the ideas become real.
+                I’m Diogo. A builder long before AI. Now the cost of fixing
+                something has fallen so far that I can act the moment I feel the
+                pain. Build faster, push the boundaries and think bigger every
+                day, without lowering the bar.
               </p>
               <div className="hero-actions">
                 <a className="button-primary" href="#projects">
-                  Explore the work <span aria-hidden="true">↗</span>
+                  Explore the work <span aria-hidden="true">↓</span>
                 </a>
                 <a className="inline-link" href="#contact">
-                  Let’s talk <span aria-hidden="true">↗</span>
+                  Let’s talk <span aria-hidden="true">↓</span>
                 </a>
               </div>
             </div>
@@ -51,7 +83,7 @@ export default function Hero() {
         </div>
         <div className="hero-meta">
           <span>
-            Engineering Manager at <strong>Meta</strong>
+            Engineering Manager, Applied AI at <strong>Meta</strong>
           </span>
           <span>
             Previously <strong>Checkout.com</strong> & <strong>Just Eat</strong>

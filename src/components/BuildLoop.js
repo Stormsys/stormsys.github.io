@@ -1,12 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useWorkingNodes } from "./workingNodes";
 import "./BuildLoop.scss";
+
+// Signals on the loop's lines. They only ever travel the way the loop runs:
+// left to right between the steps, right to left along the way back. Paths are
+// [[left%, top%], ...]; a neighbour set off by a previous firing sits a little
+// further along the same direction.
+function forwardFiring(rand, previous) {
+  const gap = previous ? (previous.gap + 1) % 4 : Math.floor(rand() * 4);
+  const from = 10 + 20 * gap + 6 + rand() * 4;
+  const to = from + (rand() < 0.2 ? 0 : 1 + rand() * 3.5);
+  return {
+    gap,
+    path: [0, 1 / 3, 2 / 3, 1].map((step) => [from + (to - from) * step, 0]),
+  };
+}
+function returnFiring(rand, previous) {
+  const from = previous
+    ? Math.max(20, previous.to - 2 - rand() * 6)
+    : 20 + rand() * 66;
+  const to = Math.max(13, from - (rand() < 0.2 ? 0 : 1.5 + rand() * 6));
+  return {
+    to,
+    path: [0, 1 / 3, 2 / 3, 1].map((step) => [from + (to - from) * step, 0]),
+  };
+}
 
 const stages = [
   {
     name: "Problem",
     title: "Find the friction worth fixing.",
     judgement:
-      "Get close to the real task. Decide what would actually help and which constraints matter.",
+      "Notice the extra step, the awkward interaction and the effort people have learned to work around. Decide what is worth fixing.",
     assistance:
       "Put multiple models to work on the problem: investigate the code, challenge the brief and bring back competing approaches.",
     output: "A clear problem to solve",
@@ -15,7 +40,7 @@ const stages = [
     name: "Explore",
     title: "Make room for better possibilities.",
     judgement:
-      "Compare directions, weigh the tradeoffs and choose an idea worth putting in someone’s hands.",
+      "Think beyond the immediate fix. Compare directions, weigh the trade-offs and choose where the effort will matter most.",
     assistance:
       "Run different approaches in parallel. Build prototypes, compare the results and take the strongest direction forward.",
     output: "A direction worth testing",
@@ -24,16 +49,16 @@ const stages = [
     name: "Build",
     title: "Turn the idea into a working slice.",
     judgement:
-      "Shape the behaviour, set the boundaries and stay close to the details that make it useful.",
+      "Give the experience as much care as the functionality. Shape the behaviour and the small details together.",
     assistance:
       "Connect models to native development workflows, backed by my own server rack and home-grown CI/CD pipelines.",
-    output: "Something that works",
+    output: "Useful. Thoughtful. Tangible.",
   },
   {
     name: "Test",
     title: "Make it earn its place.",
     judgement:
-      "Check real behaviour, edge cases and usability. Decide whether the result meets the bar.",
+      "Use it as a person would. Check the flow, the edge cases and the small details—not just whether the feature works.",
     assistance:
       "Use separate passes for implementation, review and testing. Feed failures back through the pipeline and inspect the result.",
     output: "Evidence, not assumptions",
@@ -60,6 +85,10 @@ export default function BuildLoop() {
   const diagram = useRef(null);
   const tabs = useRef([]);
   const elapsed = useRef(0);
+  const forwardAgents = useRef(null);
+  const returnAgents = useRef(null);
+  useWorkingNodes(forwardAgents, forwardFiring, 7919, 520);
+  useWorkingNodes(returnAgents, returnFiring, 104729, 760);
 
   useEffect(() => {
     if (!flowing) return undefined;
@@ -154,12 +183,6 @@ export default function BuildLoop() {
       style={{ "--active-stage": active }}
       data-flowing={flowing}
     >
-      <div className="build-loop__caption">
-        <span>Human direction × An AI-native build system</span>
-        <span>
-          Explore the loop <span aria-hidden="true">↓</span>
-        </span>
-      </div>
       <div
         className="build-loop__tabs"
         ref={diagram}
@@ -168,6 +191,15 @@ export default function BuildLoop() {
       >
         <span className="build-loop__forward" aria-hidden="true">
           <span className="build-loop__pulse" />
+        </span>
+        <span
+          className="build-loop__agents"
+          aria-hidden="true"
+          ref={forwardAgents}
+        >
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((slot) => (
+            <b key={slot} className="is-live" />
+          ))}
         </span>
         <span className="build-loop__selection" aria-hidden="true">
           <span />
@@ -203,7 +235,15 @@ export default function BuildLoop() {
             d="M900 1 V23 Q900 39 884 39 H116 Q100 39 100 23 V2"
           />
         </svg>
-        <span>Every iteration informs the next</span>
+        <span
+          className="build-loop__agents"
+          aria-hidden="true"
+          ref={returnAgents}
+        >
+          {[0, 1, 2, 3, 4, 5].map((slot) => (
+            <b key={slot} className="is-live" />
+          ))}
+        </span>
       </div>
       {stages.map((stage, index) => (
         <div
@@ -215,31 +255,21 @@ export default function BuildLoop() {
           hidden={active !== index}
           tabIndex={0}
         >
-          <div className="build-loop__panel-heading">
-            <span className="build-loop__stage-number" aria-hidden="true">
-              0{index + 1}
-            </span>
+          <div className="build-loop__lead">
             <h3>{stage.title}</h3>
+            <div className="build-loop__output">
+              <h4 className="sr-only">What moves forward</h4>
+              <p>{stage.output}</p>
+            </div>
           </div>
           <div className="build-loop__roles">
             <div className="build-loop__role">
-              <h4>
-                <span aria-hidden="true">↳</span> My direction
-              </h4>
+              <h4 className="sr-only">My direction</h4>
               <p>{stage.judgement}</p>
             </div>
             <div className="build-loop__role build-loop__role--ai">
-              <h4>
-                <span aria-hidden="true">＋</span> The engine at work
-              </h4>
+              <h4 className="sr-only">The engine at work</h4>
               <p>{stage.assistance}</p>
-            </div>
-            <div className="build-loop__output">
-              <h4>What moves forward</h4>
-              <p>
-                {stage.output}
-                <span aria-hidden="true">↗</span>
-              </p>
             </div>
           </div>
         </div>

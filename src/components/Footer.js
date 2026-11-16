@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="site-footer" id="contact">
       <div className="footer-top">
         <div>
-          <p className="eyebrow">LET’S TALK</p>
+          <p className="eyebrow">04 / LET’S TALK</p>
           <h2>
             Good things start
             <br />
@@ -29,9 +29,10 @@ export default function Footer() {
           Diogo Moura <span aria-hidden="true">/</span> London, UK
         </span>
         <nav aria-label="Footer navigation">
-          <a href="https://github.com/Stormsys">
+          <a href="https://github.com/Stormsys" target="_blank" rel="noreferrer">
             <GitHubIcon />
             GitHub <span aria-hidden="true">↗</span>
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a href="/cv/">CV ↗</a>
           <a href="#top">Back to top ↑</a>

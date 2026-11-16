@@ -1,4 +1,14 @@
 import React from "react";
+import HobbyIcon from "./HobbyIcon";
+
+const HOBBIES = [
+  ["shuttlecock", "Badminton"],
+  ["glove", "Boxing"],
+  ["dices", "Board games"],
+  ["camera", "Photography"],
+  ["printer3d", "3D printing"],
+];
+
 export default function About() {
   return (
     <section id="about" className="about" aria-labelledby="about-title">
@@ -9,12 +19,19 @@ export default function About() {
           <br />
           So does the craft.
         </h2>
-        <div className="career-note">
-          <span>Currently</span>
-          <strong>Engineering Manager, Meta</strong>
-          <span>Previously</span>
-          <strong>Checkout.com · Just Eat · Ericsson</strong>
-        </div>
+        <dl className="career-note">
+          <div className="career-note__now">
+            <dt>Currently</dt>
+            <dd>
+              <strong>Engineering Manager, Meta</strong>
+              <span>Leading teams in Applied AI</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Previously</dt>
+            <dd>Checkout.com · Just Eat · Ericsson</dd>
+          </div>
+        </dl>
         <a className="inline-link" href="/cv/">
           Explore my experience <span aria-hidden="true">↗</span>
         </a>
@@ -33,12 +50,20 @@ export default function About() {
         <p>
           Outside work, building has always been personal. Badminton admin
           became software. Devices that wouldn’t talk to each other became
-          integrations. That instinct was there long before AI joined the
-          toolkit. Now, more of those ideas are within reach.
+          integrations. I find it hard to leave that friction alone, and I
+          build the way I lead: set the direction, hold the bar, own what
+          ships.
         </p>
         <div className="off-screen">
           <span className="eyebrow">AWAY FROM THE KEYBOARD</span>
-          <p>Badminton · Boxing · Board games · Photography · 3D printing</p>
+          <ul className="hobbies">
+            {HOBBIES.map(([icon, label]) => (
+              <li key={label}>
+                <HobbyIcon name={icon} />
+                {label}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <blockquote className="leadership-quote">

@@ -1,0 +1,171 @@
+/* How I build, as a story on one grid. Three acts: the triad (loudest), the
+   loop (a step down), the close (a pair under one hairline). Gaps are tight
+   inside an act and open between acts. */
+.story-act {
+  margin-top: var(--act);
+}
+.story-beat {
+  /* Anchor lands the beat a breath below the sticky header. */
+  scroll-margin-top: 32px;
+}
+.story-beat + .story-beat {
+  margin-top: var(--beat);
+}
+.story-beat__row {
+  display: grid;
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+  align-items: baseline;
+}
+.story-beat__say {
+  font-size: var(--beat-type);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--muted-dark);
+
+  > span {
+    display: block;
+  }
+  > span:first-child {
+    color: var(--paper);
+  }
+}
+.story-beat__proof {
+  display: flex;
+  flex-direction: column;
+  color: var(--muted-dark);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+
+  > b {
+    margin-bottom: 14px;
+    color: var(--coral);
+    font-size: var(--beat-type);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  > span {
+    max-width: 34ch;
+    text-wrap: balance;
+  }
+}
+/* The supporting sentence is a message, not a footnote: body size, in paper. */
+.story-beat__proof > .story-beat__note {
+  margin-top: 12px;
+  color: var(--paper);
+
+  b {
+    color: var(--coral);
+    font-weight: 400;
+  }
+}
+
+/* A sheet in the section's own colour that the scroll story slides away to
+   draw what is under it. Off unless the story switches it on. */
+.story-cover {
+  display: none;
+  position: absolute;
+  inset: -10px -4px;
+  background: var(--dark);
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+[data-story="on"] .story-cover { display: block; }
+
+/* The loop beat steps down a level so the triad stays the loudest thing. */
+.story-beat--quiet .story-beat__say,
+.story-beat--quiet .story-beat__proof > b {
+  font-size: var(--step-type);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+.story-beat--quiet .story-beat__proof {
+  font-size: var(--text-body);
+
+  > b {
+    margin-bottom: 8px;
+  }
+}
+
+/* The close: two convictions side by side under a single hairline. */
+.story-close {
+  display: grid;
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+  grid-template-rows: auto auto;
+  padding-top: clamp(40px, 4vw, 56px);
+  border-top: 1px solid var(--line-dark);
+
+  /* Headings share their last baseline and bodies start together, whatever
+     the number of heading lines. */
+  > div {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+  > div > h3 { align-self: end; }
+
+  h3 {
+    font-size: var(--step-type);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+  }
+  p {
+    max-width: 38ch;
+    margin-top: 20px;
+    color: var(--muted-dark);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Phone: the word and its number share the first line; the caption sits
+     under the idea. The proof overlays the heading's box to do it. */
+  .story-beat:not(.story-beat--quiet) .story-beat__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .story-beat:not(.story-beat--quiet) .story-beat__say,
+  .story-beat:not(.story-beat--quiet) .story-beat__proof {
+    grid-area: 1 / 1;
+  }
+  .story-beat:not(.story-beat--quiet) .story-beat__say {
+    white-space: nowrap;
+  }
+  .story-beat:not(.story-beat--quiet) .story-beat__proof {
+    font-size: var(--text-body);
+
+    > b {
+      align-self: flex-end;
+      /* One heading line for the number, one for the second line of the idea. */
+      margin-bottom: calc(var(--beat-type) * 1.08 + 14px);
+    }
+    > span {
+      max-width: none;
+    }
+  }
+  .story-beat--quiet .story-beat__row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+  .story-close {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    row-gap: 44px;
+    padding-top: 44px;
+
+    > div { display: block; }
+
+    p {
+      max-width: none;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+  }
+}

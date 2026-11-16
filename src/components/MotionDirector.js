@@ -3,7 +3,7 @@ import "./MotionDirector.scss";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 const ENTRANCES =
-  ".section-heading, .shuttle-spotlight, .featured-project, .project-card, .about-heading, .about-copy";
+  ".section-heading, .shuttle-block, .featured-project, .project-card, .about-heading, .about-copy";
 
 export default function MotionDirector() {
   const [reduced, setReduced] = useState(

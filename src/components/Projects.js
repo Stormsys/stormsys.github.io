@@ -45,7 +45,7 @@ function ProjectLinks({ project }) {
     </div>
   ) : null;
 }
-function ProjectCard({ project }) {
+function ProjectCard({ project, wide }) {
   if (project.id === "shuttlestats")
     return <ShuttleSpotlight project={project} />;
   if (project.featured)
@@ -53,7 +53,7 @@ function ProjectCard({ project }) {
       <article className="featured-project" aria-labelledby="project-scores">
         <div className="featured-copy">
           <p className="eyebrow">
-            SELECTED BUILD <span aria-hidden="true">/</span> {project.category}
+            {project.number} / SELECTED BUILD <span aria-hidden="true">/</span> {project.category}
           </p>
           <h3 id="project-scores">{project.name}</h3>
           <p className="project-lead">{project.problem}</p>
@@ -94,7 +94,7 @@ function ProjectCard({ project }) {
     );
   return (
     <article
-      className={`project-card ${project.id === "shuttlestats" ? "project-quiet" : ""}`}
+      className={`project-card ${wide ? "project-card--wide" : ""}`}
       aria-labelledby={`project-${project.id}`}
     >
       <div className="project-topline">
@@ -103,19 +103,14 @@ function ProjectCard({ project }) {
       </div>
       <h3 id={`project-${project.id}`}>{project.name}</h3>
       <p className="project-lead">{project.problem}</p>
-      {project.features && (
-        <p className="project-description">{project.features}</p>
-      )}
-      <div className="project-bottom">
-        {project.stack?.length > 0 && (
-          <ul className="project-inline-tags" aria-label="Technologies">
-            {project.stack.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        )}
-        <ProjectLinks project={project} />
-      </div>
+      {/* Every card renders the same rows so neighbours align line for line. */}
+      <p className="project-description">{project.features}</p>
+      <ul className="project-inline-tags" aria-label="Technologies">
+        {(project.stack || []).map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <ProjectLinks project={project} />
     </article>
   );
 }
@@ -125,16 +120,20 @@ export default function Projects() {
     .flatMap((group) =>
       group.projects.map((project) => ({ ...project, group: group.id })),
     )
+    .sort((a, b) => Number(b.id === "shuttlestats") - Number(a.id === "shuttlestats"))
     .map((project, index) => ({
       ...project,
       number: String(index + 1).padStart(2, "0"),
     }));
-  const visible = projects
-    .filter((project) => filter === "all" || project.group === filter)
-    .sort(
-      (a, b) =>
-        Number(b.id === "shuttlestats") - Number(a.id === "shuttlestats"),
-    );
+  const visible = projects.filter(
+    (project) => filter === "all" || project.group === filter,
+  );
+  // An odd run of standard cards would strand the last one beside an empty
+  // half, so the closing card takes the full row instead.
+  const standard = visible.filter(
+    (project) => project.id !== "shuttlestats" && !project.featured,
+  );
+  const closing = standard.length % 2 === 1 ? standard[standard.length - 1] : null;
   return (
     <section
       id="projects"
@@ -188,7 +187,11 @@ export default function Projects() {
       </div>
       <div className="project-grid">
         {visible.map((project) => (
-          <ProjectCard project={project} key={project.id} />
+          <ProjectCard
+            project={project}
+            key={project.id}
+            wide={project === closing}
+          />
         ))}
       </div>
     </section>
