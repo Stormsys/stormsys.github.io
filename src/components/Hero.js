@@ -3,8 +3,9 @@ import Icon from "./Icon";
 import SignalLoom from "./SignalLoom";
 
 // The header takes the tone of the section passing beneath it, so it never
-// slices the dark section with a light bar. An observer watches a thin line at
-// the header's middle; no scroll handler.
+// slices the dark section with a light bar. An observer watches a one-pixel
+// line just below the header's bottom edge, so the header flips the moment
+// that edge crosses a section boundary; no scroll handler.
 function useNavTone(nav) {
   useEffect(() => {
     const dark = document.querySelector(".approach");
@@ -12,13 +13,13 @@ function useNavTone(nav) {
     let observer;
     const watch = () => {
       observer?.disconnect();
-      const middle = Math.round(nav.current.offsetHeight / 2);
+      const edge = nav.current.offsetHeight + 1;
       observer = new IntersectionObserver(
         ([entry]) => {
           nav.current.dataset.tone = entry.isIntersecting ? "dark" : "light";
         },
         {
-          rootMargin: `-${middle}px 0px -${Math.max(0, window.innerHeight - middle - 1)}px 0px`,
+          rootMargin: `-${edge}px 0px -${Math.max(0, window.innerHeight - edge - 1)}px 0px`,
         },
       );
       observer.observe(dark);
