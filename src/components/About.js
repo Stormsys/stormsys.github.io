@@ -30,7 +30,7 @@ export default function About() {
           <div className="career-note__now">
             <dt>Currently</dt>
             <dd>
-              <strong>Engineering Manager, Meta</strong>
+              <strong>Engineering Manager, Meta</strong>{" "}
               <span>Leading teams in Applied AI</span>
             </dd>
           </div>
@@ -40,8 +40,8 @@ export default function About() {
               <ul className="career-note__past">
                 {PREVIOUSLY.map(([company, role, years]) => (
                   <li key={company}>
-                    <strong>{company}</strong>
-                    <span>{role}</span>
+                    <strong>{company}</strong>{" "}
+                    <span>{role}</span>{" "}
                     <time>{years}</time>
                   </li>
                 ))}

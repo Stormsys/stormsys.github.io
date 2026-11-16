@@ -51,6 +51,32 @@ html[data-motion="on"] {
     transform: translate3d(0, var(--motion-drift, 0px), 0);
   }
 }
+// Set by a script in the page head while the prerendered page waits for the
+// app: the same starting pose as motion-arrive, on the same elements as
+// ENTRANCES in MotionDirector.js, less the one heading that never arrives
+// this way (see `.approach .section-heading.motion-enter` in App.scss).
+// While it waits, an anchor link lands at once rather than gliding: a glide
+// still under way when the app re-lands the anchor ends up past the target.
+html[data-motion-wait] {
+  scroll-behavior: auto;
+}
+@media screen {
+  html[data-motion-wait] {
+    .section-heading,
+    .shuttle-block,
+    .featured-project,
+    .project-card,
+    .about-heading,
+    .about-copy {
+      opacity: 0.2;
+      transform: translateY(18px);
+    }
+    .approach .section-heading {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
 @keyframes motion-arrive {
   from {
     opacity: 0.2;

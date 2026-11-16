@@ -171,3 +171,48 @@ test("scroll bursts share one frame and artwork drift remains bounded", () => {
   });
   expect(artwork.style.getPropertyValue("--motion-drift")).toBe("");
 });
+
+// The prerendered page holds its entrances at their starting pose until the
+// app has decided which of them are in view (script in public/index.html).
+describe("prerendered entrance hold", () => {
+  afterEach(() =>
+    document.documentElement.removeAttribute("data-motion-wait"),
+  );
+
+  test("stays until the first observation, then every element in view arrives once", () => {
+    document.documentElement.setAttribute("data-motion-wait", "");
+    mount();
+    expect(document.documentElement).toHaveAttribute("data-motion-wait");
+    const heading = screen.getByRole("heading");
+    // The hold shifts the heading down, so the observer saw too little of it.
+    jest
+      .spyOn(heading, "getBoundingClientRect")
+      .mockReturnValue({ top: 700, bottom: 900, height: 200 });
+    act(() =>
+      intersections[0].callback([{ target: heading, isIntersecting: false }]),
+    );
+    expect(document.documentElement).not.toHaveAttribute("data-motion-wait");
+    expect(heading).toHaveClass("motion-enter");
+  });
+
+  test("an element out of view is released without arriving", () => {
+    document.documentElement.setAttribute("data-motion-wait", "");
+    mount();
+    const heading = screen.getByRole("heading");
+    jest
+      .spyOn(heading, "getBoundingClientRect")
+      .mockReturnValue({ top: 2000, bottom: 2200, height: 200 });
+    act(() =>
+      intersections[0].callback([{ target: heading, isIntersecting: false }]),
+    );
+    expect(document.documentElement).not.toHaveAttribute("data-motion-wait");
+    expect(heading).not.toHaveClass("motion-enter");
+  });
+
+  test("is dropped at once when motion is reduced", () => {
+    document.documentElement.setAttribute("data-motion-wait", "");
+    reduced.matches = true;
+    mount();
+    expect(document.documentElement).not.toHaveAttribute("data-motion-wait");
+  });
+});

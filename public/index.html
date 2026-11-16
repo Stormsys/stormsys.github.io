@@ -205,6 +205,22 @@
         ]
       }
     </script>
+    <script>
+      // The page arrives already rendered. Hold the entrance elements at their
+      // starting pose until the app takes over, so each one arrives once
+      // instead of showing, dimming and arriving again. Released after four
+      // seconds regardless, so a failed script never leaves content faint.
+      (function () {
+        var root = document.documentElement;
+        if (!window.matchMedia) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+        root.setAttribute("data-motion-wait", "");
+        setTimeout(function () {
+          root.removeAttribute("data-motion-wait");
+        }, 4000);
+      })();
+    </script>
   </head>
   <body>
     <noscript

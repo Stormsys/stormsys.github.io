@@ -43,9 +43,9 @@ export default function Hero() {
           dm<span>.</span>
         </a>
         <div>
-          <a href="#projects">Selected work</a>
-          <a href="#approach">Approach</a>
-          <a href="#about">About</a>
+          <a href="#projects">Selected work</a>{" "}
+          <a href="#approach">Approach</a>{" "}
+          <a href="#about">About</a>{" "}
           <a className="nav-cv" href="/cv/">
             CV <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
           </a>
@@ -59,7 +59,7 @@ export default function Hero() {
         <div className="hero-stage">
           <div className="hero-story">
             <h1>
-              <span className="hero-line">Feel the friction.</span>
+              <span className="hero-line">Feel the friction.</span>{" "}
               <span className="hero-line hero-line--signal">
                 Build beyond it.
               </span>

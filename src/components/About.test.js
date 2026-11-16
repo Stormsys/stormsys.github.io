@@ -8,7 +8,7 @@ test("About says nothing about Meta beyond the role and its one line", () => {
     .map((node) => node.textContent)
     .filter((text) => /Meta/.test(text));
   expect(meta).toEqual([
-    "Engineering Manager, MetaLeading teams in Applied AI",
+    "Engineering Manager, Meta Leading teams in Applied AI",
     expect.stringMatching(/^At Meta, I lead teams working on Applied AI\./),
   ]);
   // No team size, product or outcome figure anywhere in the section.
