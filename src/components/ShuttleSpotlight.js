@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "./Icon";
 import "./ShuttleSpotlight.scss";
 
 export default function ShuttleSpotlight({ project }) {
@@ -34,11 +35,11 @@ export default function ShuttleSpotlight({ project }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Explore ShuttleStats <span aria-hidden="true">↗</span>
+                Explore ShuttleStats <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <a className="is-inpage" href="#proof">
-                See the numbers <span aria-hidden="true">↓</span>
+                See the numbers <span aria-hidden="true"><Icon name="arrow-down" /></span>
               </a>
             </div>
           </div>

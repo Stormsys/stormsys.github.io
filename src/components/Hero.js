@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Icon from "./Icon";
 import SignalLoom from "./SignalLoom";
 
 // The header takes the tone of the section passing beneath it, so it never
@@ -45,7 +46,7 @@ export default function Hero() {
           <a href="#approach">Approach</a>
           <a href="#about">About</a>
           <a className="nav-cv" href="/cv/">
-            CV <span aria-hidden="true">↗</span>
+            CV <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
           </a>
         </div>
       </nav>
@@ -71,10 +72,10 @@ export default function Hero() {
               </p>
               <div className="hero-actions">
                 <a className="button-primary" href="#projects">
-                  Explore the work <span aria-hidden="true">↓</span>
+                  Explore the work <span aria-hidden="true"><Icon name="arrow-down" /></span>
                 </a>
                 <a className="inline-link" href="#contact">
-                  Let’s talk <span aria-hidden="true">↓</span>
+                  Let’s talk <span aria-hidden="true"><Icon name="arrow-down" /></span>
                 </a>
               </div>
             </div>
