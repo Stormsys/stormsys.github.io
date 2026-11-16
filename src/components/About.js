@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "./Icon";
 import HobbyIcon from "./HobbyIcon";
 
 const PREVIOUSLY = [
@@ -49,7 +50,7 @@ export default function About() {
           </div>
         </dl>
         <a className="inline-link" href="/cv/">
-          Explore my experience <span aria-hidden="true">↗</span>
+          Explore my experience <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
         </a>
       </div>
       <div className="about-copy">
@@ -90,7 +91,7 @@ export default function About() {
         <footer>
           <cite>VP, Engineering · Checkout.com · 2023</cite>
           <a href="/cv/#/feedback">
-            Read the feedback <span aria-hidden="true">↗</span>
+            Read the feedback <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
           </a>
         </footer>
       </blockquote>

@@ -38,7 +38,7 @@ function ProjectLinks({ project }) {
         >
           {link.url.startsWith("https://github.com/") && <GitHubIcon />}
           {link.label}
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
       ))}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Icon from "./Icon";
 import "./SignalLoom.scss";
 
 // "Red is friction". One idea on the left, a ticked result on the right, and
@@ -371,7 +372,7 @@ export default function SignalLoom({ seed = SEED }) {
     >
       <div className="signal-loom__topline">
         <span>HUMAN INSTINCT × AI</span>
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true"><Icon name="arrow-up-right" weight={1.6} /></span>
       </div>
       <div className="signal-loom__art" aria-hidden="true">
         <canvas ref={canvas} />
@@ -409,7 +410,7 @@ export default function SignalLoom({ seed = SEED }) {
               />
             </svg>
             {amplified ? "Reset" : "Amplify"}
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
           </button>
         </div>
       </figcaption>

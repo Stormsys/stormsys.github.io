@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "./Icon";
 import GitHubIcon from "./GitHubIcon";
 export default function Footer() {
   return (
@@ -19,7 +20,7 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
           >
-            Find me on LinkedIn <span aria-hidden="true">↗</span>
+            Find me on LinkedIn <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
@@ -31,11 +32,15 @@ export default function Footer() {
         <nav aria-label="Footer navigation">
           <a href="https://github.com/Stormsys" target="_blank" rel="noreferrer">
             <GitHubIcon />
-            GitHub <span aria-hidden="true">↗</span>
+            GitHub <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
-          <a href="/cv/">CV ↗</a>
-          <a href="#top">Back to top ↑</a>
+          <a href="/cv/">
+            CV <Icon name="arrow-up-right" />
+          </a>
+          <a href="#top">
+            Back to top <Icon name="arrow-up" />
+          </a>
         </nav>
       </div>
     </footer>
