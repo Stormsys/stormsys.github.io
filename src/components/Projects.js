@@ -39,7 +39,7 @@ function ProjectLinks({ project }) {
           {link.url.startsWith("https://github.com/") && <GitHubIcon />}
           {link.label}
           <span aria-hidden="true"><Icon name="arrow-up-right" /></span>
-          <span className="sr-only"> (opens in a new tab)</span>
+          <span className="sr-only">: {project.name} (opens in a new tab)</span>
         </a>
       ))}
     </div>
@@ -156,7 +156,7 @@ export default function Projects() {
         </p>
       </div>
       <div className="project-controls">
-        <div className="filter-bar" aria-label="Filter projects">
+        <div className="filter-bar" role="group" aria-label="Filter projects">
           {[{ id: "all", name: "All work" }, ...projectGroups].map((group) => (
             <button
               key={group.id}
